@@ -7,7 +7,7 @@
         :title="n.title"
         :body="n.body || n.message"
         :type="n.type"
-        :life="n.life || 8"
+        :life="n.life || 5"
         :icon="n.icon"
         :img="n.img"
         @close="remove(n)"
@@ -68,6 +68,7 @@ export default {
 .toaster {
   position: fixed;
   display: inline;
+  z-index: 999;
 }
 
 .top-left {
