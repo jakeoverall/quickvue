@@ -1,16 +1,22 @@
 <template>
   <div class="quick-modal-slot">
     <transition name="fade">
-      <div class="quick-modal quick-modal-container" :class="{open: open}" v-if="open">
-        <div class="quick-modal-overlay" :class="{open: open}" @click="toggleModal"></div>
+      <div
+        class="quick-modal quick-modal-container"
+        :class="{ open: open }"
+        v-if="open"
+      >
+        <div
+          class="quick-modal-overlay"
+          :class="{ open: open }"
+          @click="toggleModal"
+        ></div>
         <div
           class="quick-modal-card"
-          :class="{open: open}"
-          :style="{'width': width+'%','max-height': height+'%'}"
+          :class="{ open: open }"
+          :style="{ width: width + '%', 'max-height': height + '%' }"
         >
-          <div>
-            <slot></slot>
-          </div>
+          <slot></slot>
           <div class="m-0 p-0" v-if="showFooter">
             <slot name="footer"></slot>
           </div>
