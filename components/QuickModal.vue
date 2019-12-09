@@ -4,7 +4,7 @@
       <div class="quick-modal quick-modal-container" :class="{open: open}" v-if="open">
         <div class="quick-modal-overlay" :class="{open: open}" @click="toggleModal"></div>
         <div
-          class="quick-modal-card d-flex"
+          class="quick-modal-card"
           :class="{open: open}"
           :style="{'width': width+'%','max-height': height+'%'}"
         >
@@ -124,7 +124,7 @@ export default {
 .quick-modal-card {
   z-index: 100;
   min-height: 50%;
-  max-width: 80%;
+  max-width: 100%;
   background: transparent;
   opacity: 1;
   overflow: auto;
