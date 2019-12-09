@@ -54,5 +54,5 @@ export const toastInfo = function (msg, title = "Info") {
 }
 
 function getId() {
-  return `${Math.floor(Math.random() * 1000000)}-${Math.floor(Math.random() * 1000000)}`
+  return `QID${Math.floor(Math.random() * 1000000)}-${Math.floor(Math.random() * 1000000)}`
 }
