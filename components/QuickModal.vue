@@ -16,6 +16,9 @@
           :class="{ open: open }"
           :style="{ width: width + '%', 'max-height': height + '%' }"
         >
+          <div v-if="!hideClose" class="close-modal-button action muted" @click="closeModal">
+            x
+          </div>
           <slot></slot>
           <div class="m-0 p-0" v-if="showFooter">
             <slot name="footer"></slot>
@@ -134,6 +137,7 @@ export default {
   background: transparent;
   opacity: 1;
   overflow: auto;
+  position: relative;
 }
 
 .quick-modal-overlay {
@@ -160,5 +164,13 @@ export default {
 .quick-modal.light > .modal-content {
   color: var(--dark);
   background: var(--light);
+}
+.quick-modal .close-modal-button {
+  position: absolute;
+  right: 10px;
+  top: -10px;
+  font-weight: bold;
+  z-index: 99;
+  cursor: pointer;
 }
 </style>
