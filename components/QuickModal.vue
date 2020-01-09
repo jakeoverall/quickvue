@@ -16,7 +16,11 @@
           :class="{ open: open }"
           :style="{ width: width + '%', 'max-height': height + '%' }"
         >
-          <div v-if="!hideClose" class="close-modal-button action muted" @click="closeModal">
+          <div
+            v-if="!hideClosebutton"
+            class="close-modal-button action muted"
+            @click="closeModal"
+          >
             x
           </div>
           <slot></slot>
@@ -46,6 +50,10 @@ export default {
     height: {
       type: Number,
       default: 80
+    },
+    hideClosebutton: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
