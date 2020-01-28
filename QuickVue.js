@@ -1,30 +1,42 @@
-import Toaster from './components/Notifications/Toaster.vue'
-import QuickCollapse from './components/QuickCollapse.vue'
-import QuickModal from './components/QuickModal.vue'
-import QuickView from './components/QuickView.vue'
-import QuickToast from './components/QuickToast.vue'
+import Toaster from "./lib/components/Notifications/Toaster.vue";
+import QuickCollapse from "./lib/components/QuickCollapse.vue";
+import QuickModal from "./lib/components/QuickModal.vue";
+import QuickView from "./lib/components/QuickView.vue";
+import QuickToast from "./lib/components/QuickToast.vue";
+import QuickTip from "./lib/components/QuickTip.vue";
+import swal from "sweetalert2";
+export * from "./lib/components/Notifications/NotificationService";
 
-export * from "./components/Notifications/NotificationService"
+import { Resources } from "./lib/Resources";
+import {
+  toastError,
+  toast,
+  toastInfo,
+  toastSuccess,
+  toastWarning
+} from "./lib/components/Notifications/NotificationService";
+import { $debounce, $confirm } from "./lib/utils";
 
 export const QuickVue = {
   install(Vue) {
-    Vue.component('toaster', Toaster)
-    Vue.component('quick-modal', QuickModal)
-    Vue.component('quick-collapse', QuickCollapse)
-    Vue.component('quick-view', QuickView)
-    Vue.component('quick-toast', QuickToast)
-  },
-
-  /**
-  * A simple debounce function timeout is (ms)
-  * @param {function} callback 
-  * @param {number} timeout 
-  */
-  debounce(callback, timeout) {
-    let id;
-    return (...args) => {
-      clearTimeout(id);
-      return id = setTimeout(() => callback(...args), timeout);
+    Vue.component("toaster", Toaster);
+    Vue.component("quick-modal", QuickModal);
+    Vue.component("quick-collapse", QuickCollapse);
+    Vue.component("quick-view", QuickView);
+    Vue.component("quick-toast", QuickToast);
+    Vue.component("quick-tip", QuickTip);
+    Vue.prototype.$debouce = $debounce;
+    Vue.prototype.$confirm = $confirm;
+    Vue.prototype.$swal = swal;
+    Vue.prototype.$toast = {
+      custom: toast,
+      error: toastError,
+      info: toastInfo,
+      success: toastSuccess,
+      warning: toastWarning
     };
+    Vue.prototype.$resource = Resources;
   }
-}
+};
+
+export const Resource = Resources;

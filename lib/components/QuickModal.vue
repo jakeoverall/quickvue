@@ -21,7 +21,7 @@
             class="close-modal-button action muted"
             @click="closeModal"
           >
-            x
+            &times;
           </div>
           <slot></slot>
           <div class="m-0 p-0" v-if="showFooter">
