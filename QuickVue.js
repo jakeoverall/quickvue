@@ -6,8 +6,8 @@ import QuickToast from "./lib/components/QuickToast.vue";
 import QuickTip from "./lib/components/QuickTip.vue";
 import swal from "sweetalert2";
 export * from "./lib/components/Notifications/NotificationService";
+import LP from "lightpath";
 
-import { Resources } from "./lib/Resources";
 import {
   toastError,
   toast,
@@ -35,8 +35,8 @@ export const QuickVue = {
       success: toastSuccess,
       warning: toastWarning
     };
-    Vue.prototype.$resource = Resources;
+    Vue.prototype.$resource = LP;
   }
 };
 
-export const Resource = Resources;
+export const LightPath = LP;

@@ -32,3 +32,18 @@ Vue.use(QuickVue);
 - **QuickModal:**
 - **QuickCollapse:**
 - **QuickView:**
+- **QuickTip:**
+- **QuickView:**
+
+### Plugins
+
+- \$debouce
+- async \$confirm
+- \$swal
+- \$toast.
+  - custom
+  - error
+  - info
+  - success
+  - warning
+- $resource = [LightPath](https://www.npmjs.com/package/lightpath)

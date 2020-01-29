@@ -1,15 +1,16 @@
 {
   "name": "@bcwdev/quickvue",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "Common easy to use vue components",
   "main": "QuickVue.js",
   "files": [
     "QuickVue.js",
-    "/components"
+    "/lib"
   ],
   "author": "Jake Overall <joverall22@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "lightpath": "0.0.3",
     "sweetalert2": "^9.7.0"
   }
 }
