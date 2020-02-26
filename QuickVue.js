@@ -25,7 +25,7 @@ export const QuickVue = {
     Vue.component("quick-view", QuickView);
     Vue.component("quick-toast", QuickToast);
     Vue.component("quick-tip", QuickTip);
-    Vue.prototype.$debouce = $debounce;
+    Vue.prototype.$debounce = $debounce;
     Vue.prototype.$confirm = $confirm;
     Vue.prototype.$swal = swal;
     Vue.prototype.$toast = {
