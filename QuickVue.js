@@ -15,7 +15,8 @@ import {
   toastSuccess,
   toastWarning
 } from "./lib/components/Notifications/NotificationService";
-import { $debounce, $confirm } from "./lib/utils";
+import { $confirm } from "./lib/utils";
+import { $debounce } from "./lib/debounced";
 
 export const QuickVue = {
   install(Vue) {
