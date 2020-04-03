@@ -15,7 +15,7 @@ import {
   toastSuccess,
   toastWarning
 } from "./lib/components/Notifications/NotificationService";
-import { $confirm } from "./lib/utils";
+import { $confirm, $connectionMonitor } from "./lib/utils";
 import { $debounce } from "./lib/debounced";
 
 export const QuickVue = {
@@ -36,6 +36,7 @@ export const QuickVue = {
       success: toastSuccess,
       warning: toastWarning
     };
+    Vue.prototype.$connectionMonitor = $connectionMonitor
     Vue.prototype.$resource = LP;
   }
 };

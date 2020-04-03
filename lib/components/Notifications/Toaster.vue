@@ -24,9 +24,14 @@ export default {
       type: String,
       validator(val) {
         return (
-          ["top-left", "top-right", "bottom-left", "bottom-right"].indexOf(
-            val
-          ) != -1
+          [
+            "top-left",
+            "top-right",
+            "top-center",
+            "bottom-left",
+            "bottom-right",
+            "bottom-center"
+          ].indexOf(val) != -1
         );
       },
       default: "top-right"
@@ -81,6 +86,12 @@ export default {
   right: 1em;
 }
 
+.top-center {
+  top: 1em;
+  left: 50vw;
+  transform: translateX(-50%);
+}
+
 .bottom-left {
   bottom: 1em;
   left: 1em;
@@ -89,5 +100,11 @@ export default {
 .bottom-right {
   bottom: 1em;
   right: 1em;
+}
+
+.bottom-center {
+  bottom: 1em;
+  left: 50vw;
+  transform: translateX(-50%);
 }
 </style>

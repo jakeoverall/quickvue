@@ -18,7 +18,7 @@ Vue.use(QuickVue);
 <template>
   <div id="app">
     <!-- 
-      location="top-left" | "top-right" | "bottom-left" | "bottom-right" 
+      location="top-left" | "top-right" | "top-center" | "bottom-left" | "bottom-right" | "bottom-center" 
       -->
     <toaster location="top-right" />
     <div class="loader" v-if="loading"></div>
@@ -41,9 +41,14 @@ Vue.use(QuickVue);
 - async \$confirm
 - \$swal
 - \$toast.
-  - custom
-  - error
+  - custom({ title: string, body?: string, type?: string, icon?: string, img?: string })
+  - error(msg, icon?, title?)
   - info
   - success
   - warning
 - $resource = [LightPath](https://www.npmjs.com/package/lightpath)
+- $connectionMonitor
+
+```javascript
+$connectionMonitor(onConnect = (monitorElem) => {}, onDisconnect = (monitorElem) => {})
+```
