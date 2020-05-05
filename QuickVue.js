@@ -4,9 +4,12 @@ import QuickModal from "./lib/components/QuickModal.vue";
 import QuickView from "./lib/components/QuickView.vue";
 import QuickToast from "./lib/components/QuickToast.vue";
 import QuickTip from "./lib/components/QuickTip.vue";
+import LoggerComponent from "./lib/components/Logger.vue";
 import swal from "sweetalert2";
-export * from "./lib/components/Notifications/NotificationService";
 import LP from "lightpath";
+import './lib/Logger'
+export * from "./lib/components/Notifications/NotificationService";
+export * from './lib/Logger'
 
 import {
   toastError,
@@ -26,6 +29,7 @@ export const QuickVue = {
     Vue.component("quick-view", QuickView);
     Vue.component("quick-toast", QuickToast);
     Vue.component("quick-tip", QuickTip);
+    Vue.component("logger", LoggerComponent)
     Vue.prototype.$debounce = $debounce;
     Vue.prototype.$confirm = $confirm;
     Vue.prototype.$swal = swal;
