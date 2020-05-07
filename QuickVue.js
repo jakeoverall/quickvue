@@ -7,7 +7,6 @@ import QuickTip from "./lib/components/QuickTip.vue";
 import LoggerComponent from "./lib/components/Logger.vue";
 import swal from "sweetalert2";
 import LP from "lightpath";
-import './lib/Logger'
 export * from "./lib/components/Notifications/NotificationService";
 export * from './lib/Logger'
 
@@ -20,6 +19,7 @@ import {
 } from "./lib/components/Notifications/NotificationService";
 import { $confirm, $connectionMonitor } from "./lib/utils";
 import { $debounce } from "./lib/debounced";
+import { Logger } from "./lib/Logger";
 
 export const QuickVue = {
   install(Vue) {
@@ -42,6 +42,10 @@ export const QuickVue = {
     };
     Vue.prototype.$connectionMonitor = $connectionMonitor
     Vue.prototype.$resource = LP;
+    Object.defineProperty(Vue.prototype, '$log', {
+      get: () => Logger
+    })
+    Vue.observable(Logger)
   }
 };
 
