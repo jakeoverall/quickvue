@@ -10,7 +10,7 @@
   "author": "Jake Overall <joverall22@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "lightpath": "0.0.3",
+    "lightpath": "0.0.7",
     "sweetalert2": "^9.7.0"
   }
 }
