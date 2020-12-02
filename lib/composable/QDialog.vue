@@ -10,7 +10,7 @@
                   {{ title }}
                 </span>
                 <QBtn class="icon text-light stroke" @click="close">
-                  <VIcon icon="mdi-close" />
+                  <QIcon icon="mdi-close" />
                 </QBtn>
               </div>
             </slot>

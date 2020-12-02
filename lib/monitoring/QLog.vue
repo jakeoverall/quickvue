@@ -1,7 +1,7 @@
 <template>
   <div>
     <Transition name="slideY">
-      <div :permanent="Logger.visible" v-if="Logger.visible" class="logger-container elevation-4" :class="theme">
+      <div v-if="open" class="logger-container elevation-4" :class="theme">
         <div class="logger-view">
           <div class="top-bar border-bottom text-white d-flex justify-content-between">
             <div class="d-flex align-items-center">
@@ -72,6 +72,7 @@ export default {
       theme,
       themes: ['default', 'dracula'],
       logs: computed(() => Logger.logs),
+      open: computed(() => Logger.visible),
       Logger,
       logIcon(type) {
         if (type === 'error') {
