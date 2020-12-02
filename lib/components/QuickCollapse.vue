@@ -11,7 +11,9 @@
           class="fa fa-fw mr-2"
           :class="{'fa-caret-right': !show, 'fa-caret-down': show}"
         ></i>
-        <h5 class="m-0">{{title}}</h5>
+        <h5 class="m-0">
+          {{ title }}
+        </h5>
       </div>
       <div v-if="add" class="action muted" @click="showForm = !showForm">
         <i class="fa fa-fw ml-1" :class="showForm ? addIcons.close : addIcons.open"></i>
@@ -28,7 +30,7 @@
 
 <script>
 export default {
-  name: "QuickCollapse",
+  name: 'QuickCollapse',
   props: {
     title: { type: String, required: true },
     open: Boolean,
@@ -36,14 +38,14 @@ export default {
     addIcons: {
       type: Object,
       default() {
-        return { open: "fa-plus-square", close: "fa-minus-square" };
+        return { open: 'fa-plus-square', close: 'fa-minus-square' }
       }
     },
-    titleClass: String,
+    titleClass: { type: String, default: '' },
     titleStyle: {
       type: Object,
       default() {
-        return {};
+        return {}
       }
     }
   },
@@ -51,12 +53,12 @@ export default {
     return {
       show: false,
       showForm: false
-    };
+    }
   },
   mounted() {
-    this.show = this.open;
+    this.show = this.open
   }
-};
+}
 </script>
 
 <style>

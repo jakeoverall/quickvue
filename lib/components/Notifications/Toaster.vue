@@ -1,7 +1,7 @@
 <template>
   <div class="toaster" :class="location">
     <transition-group name="notification-list" tag="div">
-      <quick-toast
+      <q-toast
         v-for="n in notifications"
         :key="n.id"
         :title="n.title"
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { GETNOTIFICATIONS } from "./NotificationService";
+import { GETNOTIFICATIONS } from './NotificationService'
 export default {
   props: {
     location: {
@@ -25,47 +25,46 @@ export default {
       validator(val) {
         return (
           [
-            "top-left",
-            "top-right",
-            "top-center",
-            "bottom-left",
-            "bottom-right",
-            "bottom-center"
-          ].indexOf(val) != -1
-        );
+            'top-left',
+            'top-right',
+            'top-center',
+            'bottom-left',
+            'bottom-right',
+            'bottom-center'
+          ].indexOf(val) !== -1
+        )
       },
-      default: "top-right"
+      default: 'top-right'
     }
   },
-  name: "Toaster",
+  name: 'Toaster',
   data() {
     return {
       notifications: GETNOTIFICATIONS()
-    };
+    }
   },
   watch: {
     notifications: {
       handler(val) {
-        this.$set(this.notifications, val);
+        this.$set(this.notifications, val)
       },
       deep: true
     }
   },
   methods: {
     remove(toast) {
-      let i = this.notifications.findIndex(n => n.id == toast.id);
-      if (i == -1) {
-        return;
+      const i = this.notifications.findIndex(n => n.id === toast.id)
+      if (i === -1) {
+        return
       }
-      this.notifications.splice(i, 1);
+      this.notifications.splice(i, 1)
     }
   }
-};
+}
 </script>
 
-
 <style scoped>
-.notification-list-enter,
+.notification-list-enter-from,
 .notification-list-leave-to {
   opacity: 0;
 }

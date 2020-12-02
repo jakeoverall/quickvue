@@ -20,11 +20,11 @@
 
 <script>
 export default {
-  name: "Alert",
+  name: 'Alert',
   props: {
     type: {
       type: String,
-      default: "alert-info"
+      default: 'alert-info'
     },
     name: {
       required: true,
@@ -33,15 +33,15 @@ export default {
   },
   data() {
     return {
-      dismissed: window.localStorage.getItem("alert:" + this.name)
-    };
+      dismissed: window.localStorage.getItem('alert:' + this.name)
+    }
   },
   methods: {
     dismiss() {
-      window.localStorage.setItem("alert:" + this.name, true);
+      window.localStorage.setItem('alert:' + this.name, true)
     }
   }
-};
+}
 </script>
 
 <style></style>

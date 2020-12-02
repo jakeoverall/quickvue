@@ -1,0 +1,84 @@
+<template>
+  <div class="w-100" :class="{'no-select': noSelect}">
+    <label v-if="label">{{ label }}</label>
+    <div class="d-flex align-items-center position-relative input-container" :class="{insetIconP, insetIconA, asSelect}">
+      <QIcon class="prepended-icon" :icon="prependIcon" v-if="prependIcon" />
+      <input v-bind="$attrs"
+             class="form-control"
+             type="text"
+             autocomplete="none"
+      >
+      <QIcon class="appended-icon" :icon="appendIcon" v-if="appendIcon" />
+    </div>
+    <transition name="fade">
+      <sup class="m-1" v-if="hint">{{ hint }}</sup>
+    </transition>
+  </div>
+</template>
+
+<script>
+export default {
+  inheritAttrs: false,
+  props: {
+    noSelect: { type: Boolean, default: false },
+    asSelect: { type: Boolean, default: false },
+    insetIconA: { type: Boolean, default: false },
+    insetIconP: { type: Boolean, default: false },
+    label: { type: String, default: '' },
+    prependIcon: { type: String, default: '' },
+    appendIcon: { type: String, default: 'mdi-chevron-down' },
+    hint: { type: String, default: '' }
+  }
+}
+</script>
+
+<style scoped lang="scss">
+
+.input-container{
+  &.insetIconP{
+    input{
+      padding-left: 30px;
+    }
+    .prepended-icon{
+      position: absolute;
+    }
+  }
+  &.insetIconA{
+    input{
+      padding-right: 40px;
+    }
+    .appended-icon{
+      transform: translateX(-34px);
+    }
+  }
+  &.asSelect{
+    cursor: pointer;
+    &:hover{
+      .appended-icon{
+        opacity: .8;
+      }
+    }
+    input{
+      cursor: pointer;
+      padding-right: 40px;
+      background-color: white;
+    }
+    .appended-icon{
+      opacity: .5;
+    }
+  }
+}
+label{
+  max-width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  pointer-events: none;
+  height: 20px;
+  line-height: 20px;
+  opacity: .75;
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: 0;
+}
+
+</style>

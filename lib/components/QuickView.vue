@@ -6,15 +6,16 @@
           <div class="m-0">
             <div class="d-flex align-items-center justify-content-between">
               <slot name="title">
-                <p class="m-0" v-if="title">{{title}}:</p>
+                <p class="m-0" v-if="title">
+                  {{ title }}:
+                </p>
                 <span v-if="tag" class="tag" :style="{'background-color': color || 'purple'}">
-                  <i
+                  <QIcon
                     v-if="tag == 'icon'"
-                    class="fa fa-lg fa-fw"
-                    :class="icon"
+                    :icon="icon"
                     :style="{'color': tagColor}"
-                  ></i>
-                  <span :style="{'color': tagColor}" v-else>{{tag}}</span>
+                  />
+                  <span :style="{'color': tagColor}" v-else>{{ tag }}</span>
                 </span>
               </slot>
               <div
@@ -22,7 +23,7 @@
                 :class="{active: active}"
                 @click="active = false"
               >
-                <i class="fa fa-lg fa-fw fa-close action muted"></i>
+                <QIcon icon="mdi-close" class="action muted" />
               </div>
             </div>
           </div>
@@ -40,86 +41,86 @@
         @mouseout="onHover('out')"
       >
         <div v-if="icon">
-          <i class="fa fa-fw action muted" :class="icon" :style="{'color': color}"></i>
-          <span v-if="showTitle" class="ml-1" :style="{'color': color}">{{title}}</span>
+          <QIcon class="action muted" :icon="icon" :style="{'color': color}" />
+          <span v-if="showTitle" class="ml-1" :style="{'color': color}">{{ title }}</span>
         </div>
         <div v-else-if="useSlot">
           <slot name="hoverable"></slot>
         </div>
-        <div v-else :style="{'text-decoration-color': color}">{{title}}</div>
+        <div v-else :style="{'text-decoration-color': color}">
+          {{ title }}
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-
 <script>
 export default {
-  name: "QuickView",
+  name: 'QuickView',
   props: {
-    title: { type: String },
+    title: { type: String, default: '' },
     showTitle: { type: Boolean, default: false },
-    color: { type: String, default: "inherit" },
-    tag: String,
-    tagColor: { type: String},
-    icon: String,
+    color: { type: String, default: 'inherit' },
+    tag: { type: String, default: '' },
+    tagColor: { type: String, default: '' },
+    icon: { type: String, default: '' },
     forceClick: { type: Boolean, default: false },
     useSlot: { type: Boolean, default: false }
   },
   data() {
     return {
       active: false,
-      position: { top: "2em", left: "2em" },
+      position: { top: '2em', left: '2em' },
       hovering: false
-    };
+    }
   },
   mounted() {
-    this.setHoverPosition();
+    this.setHoverPosition()
   },
   methods: {
     getElementPos() {
-      var rect = this.$refs.hoverElem.getBoundingClientRect(),
-        scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
-        scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      var rect = this.$refs.hoverElem.getBoundingClientRect()
+      var scrollLeft = window.pageXOffset || document.documentElement.scrollLeft
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop
       return {
         top: rect.top + scrollTop,
         left: rect.left + scrollLeft
         // bottom: rect.bottom
-      };
+      }
     },
     setHoverPosition(e) {
       if (this.active) {
-        return;
+        return
       }
       if (e) {
         // let pos = this.getElementPos();
-        var el = this.$refs.hoverElem;
+        var el = this.$refs.hoverElem
         var mod = {
           y: 0,
           x: 0
-        };
+        }
         if (e.clientY > window.innerHeight / 2) {
-          mod.y -= el.offsetHeight * 10;
+          mod.y -= el.offsetHeight * 10
         } else {
-          mod.y += el.offsetHeight;
+          mod.y += el.offsetHeight
         }
 
         if (e.clientX > window.innerWidth / 2) {
-          mod.x -= el.offsetWidth * 5;
+          mod.x -= el.offsetWidth * 5
         } else {
-          mod.x += el.offsetWidth;
+          mod.x += el.offsetWidth
         }
-        this.position.top = e.clientY + mod.y + "px";
-        this.position.left = e.clientX + mod.x + "px";
+        this.position.top = e.clientY + mod.y + 'px'
+        this.position.left = e.clientX + mod.x + 'px'
       }
     },
     onHover(type) {
-      this.setHoverPosition(event);
+      this.setHoverPosition(event)
     }
   }
-};
+}
 </script>
-
 
 <style>
 .quick-view {

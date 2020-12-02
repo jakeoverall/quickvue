@@ -1,52 +1,40 @@
-import Toaster from "./lib/components/Notifications/Toaster.vue";
-import QuickCollapse from "./lib/components/QuickCollapse.vue";
-import QuickModal from "./lib/components/QuickModal.vue";
-import QuickView from "./lib/components/QuickView.vue";
-import QuickToast from "./lib/components/QuickToast.vue";
-import QuickTip from "./lib/components/QuickTip.vue";
-import LoggerComponent from "./lib/components/Logger.vue";
-import swal from "sweetalert2";
-import LP from "lightpath";
-export * from "./lib/components/Notifications/NotificationService";
-export * from './lib/Logger'
-
-import {
-  toastError,
-  toast,
-  toastInfo,
-  toastSuccess,
-  toastWarning
-} from "./lib/components/Notifications/NotificationService";
-import { $confirm, $connectionMonitor } from "./lib/utils";
-import { $debounce } from "./lib/debounced";
-import { Logger } from "./lib/Logger";
+import Toaster from './lib/components/Notifications/Toaster.vue'
+import QuickCollapse from './lib/components/QuickCollapse.vue'
+import QuickView from './lib/components/QuickView.vue'
+import QuickToast from './lib/components/QuickToast.vue'
+import QuickTip from './lib/components/QuickTip.vue'
+import QLog from './lib/monitoring/QLog.vue'
+import QAsync from './lib/composable/QAsync.vue'
+import QBtn from './lib/composable/QBtn.vue'
+import QDialog from './lib/composable/QDialog.vue'
+import QIcon from './lib/composable/QIcon.vue'
+import QImg from './lib/composable/QImg.vue'
+import QInput from './lib/composable/QInput.vue'
+import QMenu from './lib/composable/QMenu.vue'
+import QList from './lib/composable/QList.vue'
+import QListItem from './lib/composable/QListItem.vue'
+import QSelect from './lib/composable/QSelect.vue'
+export * from './lib/utils'
+export * from './lib/components/Notifications/NotificationService'
+export * from './lib/monitoring/Logger'
 
 export const QuickVue = {
-  install(Vue) {
-    Vue.component("toaster", Toaster);
-    Vue.component("quick-modal", QuickModal);
-    Vue.component("quick-collapse", QuickCollapse);
-    Vue.component("quick-view", QuickView);
-    Vue.component("quick-toast", QuickToast);
-    Vue.component("quick-tip", QuickTip);
-    Vue.component("logger", LoggerComponent)
-    Vue.prototype.$debounce = $debounce;
-    Vue.prototype.$confirm = $confirm;
-    Vue.prototype.$swal = swal;
-    Vue.prototype.$toast = {
-      custom: toast,
-      error: toastError,
-      info: toastInfo,
-      success: toastSuccess,
-      warning: toastWarning
-    };
-    Vue.prototype.$connectionMonitor = $connectionMonitor
-    Vue.prototype.$resource = LP;
-    Object.defineProperty(Vue.prototype, '$log', {
-      get: () => Logger
-    })
-    Vue.observable(Logger)
+  install(app) {
+    app.component('QToaster', Toaster)
+    app.component('QDialog', QDialog)
+    app.component('QCollapse', QuickCollapse)
+    app.component('QView', QuickView)
+    app.component('QToast', QuickToast)
+    app.component('QTip', QuickTip)
+    app.component('QLog', QLog)
+    app.component('QBtn', QBtn)
+    app.component('QAsync', QAsync)
+    app.component('QIcon', QIcon)
+    app.component('QImg', QImg)
+    app.component('QInput', QInput)
+    app.component('QList', QList)
+    app.component('QListItem', QListItem)
+    app.component('QSelect', QSelect)
+    app.component('QMenu', QMenu)
   }
-};
-
-export const LightPath = LP;
+}

@@ -9,11 +9,17 @@
   >
     <div class="toast-header">
       <div class="toast-icon rounded mr-2" :class="type">
-        <i v-if="icon" class="fa fa-fw text-light" :class="icon"></i>
-        <img v-if="img" :src="img" class="rounded" style="object-fit: cover" height="20" width="20" />
+        <i v-if="icon" class="mdi text-light" :class="icon"></i>
+        <img v-if="img"
+             :src="img"
+             class="rounded"
+             style="object-fit: cover"
+             height="20"
+             width="20"
+        />
       </div>
-      <strong class="mr-auto">{{title}}</strong>
-      <small class="ml-5">{{day}} {{time}}</small>
+      <strong class="mr-auto">{{ title }}</strong>
+      <small class="ml-5">{{ day }} {{ time }}</small>
       <button
         type="button"
         class="ml-2 close"
@@ -24,7 +30,9 @@
         <small aria-hidden="true">&times;</small>
       </button>
     </div>
-    <div class="toast-body text-left" v-if="body">{{body}}</div>
+    <div class="toast-body text-left" v-if="body">
+      {{ body }}
+    </div>
     <div v-if="life" class="lifebar" @click="pause">
       <div class="progress" style="height: 1px;">
         <div
@@ -40,22 +48,23 @@
 
 <script>
 export default {
+  emits: ['close'],
   props: {
     title: { type: String, required: true },
-    body: { type: String },
-    icon: { type: String },
-    img: { type: String },
-    type: { type: String, default: "secondary" },
-    life: { type: Number },
+    body: { type: String, default: '' },
+    icon: { type: String, default: '' },
+    img: { type: String, default: '' },
+    type: { type: String, default: 'secondary' },
+    life: { type: Number, default: 0 },
     createdAt: {
       type: Number,
       default() {
-        return Date.now();
+        return Date.now()
       }
     }
   },
   mounted() {
-    this.setLife();
+    this.setLife()
   },
   data() {
     return {
@@ -63,53 +72,53 @@ export default {
       interval: 100,
       lifeInt: 0,
       paused: false
-    };
+    }
   },
   computed: {
     language() {
       try {
-        return navigator.language;
+        return navigator.language
       } catch (e) {
-        return "en-US";
+        return 'en-US'
       }
     },
     day() {
       return new Date(this.createdAt).toLocaleDateString(this.language, {
-        month: "short",
-        day: "numeric"
-      });
+        month: 'short',
+        day: 'numeric'
+      })
     },
     time() {
       return new Date(this.createdAt).toLocaleTimeString(this.language, {
-        timeStyle: "short"
-      });
+        timeStyle: 'short'
+      })
     },
     lifePercent() {
-      return (this.lifetime / this.life) * 100 + "%";
+      return (this.lifetime / this.life) * 100 + '%'
     }
   },
   methods: {
     close() {
-      this.$el.classList.remove("show");
-      this.$emit("close");
+      this.$el.classList.remove('show')
+      this.$emit('close')
     },
     setLife() {
       if (this.life) {
         this.lifeInt = setInterval(() => {
-          this.lifetime += this.interval / 1000;
+          this.lifetime += this.interval / 1000
           if (this.lifetime >= this.life) {
-            clearInterval(this.lifeInt);
-            this.close();
+            clearInterval(this.lifeInt)
+            this.close()
           }
-        }, this.interval);
+        }, this.interval)
       }
     },
     pause() {
-      this.paused = !this.paused;
-      this.paused ? clearInterval(this.lifeInt) : this.setLife();
+      this.paused = !this.paused
+      this.paused ? clearInterval(this.lifeInt) : this.setLife()
     }
   }
-};
+}
 </script>
 
 <style>
