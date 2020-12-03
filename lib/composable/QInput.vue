@@ -26,7 +26,7 @@ export default {
     insetIconP: { type: Boolean, default: false },
     label: { type: String, default: '' },
     prependIcon: { type: String, default: '' },
-    appendIcon: { type: String, default: 'mdi-chevron-down' },
+    appendIcon: { type: String, default: '' },
     hint: { type: String, default: '' }
   }
 }

@@ -17,7 +17,7 @@
     </template>
     <QList class="card scrollable-y no-select">
       <QListItem class="selectable w-100" v-for="(item,i) in items" :key="item.id ? item.id : item+i" @click="onSelect(item)">
-        {{ item[itemText] ? item[itemText]: item }}
+        {{ item ? item[itemText] ? item[itemText]: item : '-- SELECT --' }}
       </QListItem>
     </QList>
   </QMenu>
