@@ -5,7 +5,7 @@
         no-select
         as-select
         readonly
-        :value="selected[itemText] ? selected[itemText]: selected"
+        v-model="state.display"
         :inset-icon-p="insetIconP"
         :inset-icon-a="insetIconA"
         :prepend-icon="prependIcon"
@@ -17,13 +17,14 @@
     </template>
     <QList class="card scrollable-y no-select">
       <QListItem class="selectable w-100" v-for="(item,i) in items" :key="item.id ? item.id : item+i" @click="onSelect(item)">
-        {{ item ? item[itemText] ? item[itemText]: item : '-- SELECT --' }}
+        {{ item[itemText] ? item[itemText]: item }}
       </QListItem>
     </QList>
   </QMenu>
 </template>
 
 <script>
+import { reactive, computed } from 'vue'
 export default {
   props: {
     selected: { type: [Object, String, Number], default: () => null },
@@ -39,7 +40,14 @@ export default {
   emits: ['select'],
   inheritAttrs: false,
   setup(props, context) {
+    const state = reactive({
+      display: computed(() => {
+        const label = typeof props.selected === 'string' || typeof props.selected === 'number' ? props.selected : ''
+        return props.selected[props.itemText] ? props.selected[props.itemText] : label
+      })
+    })
     return {
+      state,
       onSelect(item) {
         context.emit('select', item)
       }
