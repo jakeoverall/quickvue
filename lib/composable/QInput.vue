@@ -4,6 +4,9 @@
     <div class="d-flex align-items-center position-relative input-container" :class="{insetIconP, insetIconA, asSelect}">
       <QIcon class="prepended-icon" :icon="prependIcon" v-if="prependIcon" />
       <input v-bind="$attrs"
+             @input="change"
+             @blur="blur"
+             :value="modelValue"
              class="form-control"
              type="text"
              autocomplete="none"
@@ -19,6 +22,7 @@
 <script>
 export default {
   inheritAttrs: false,
+  emits: ['update:modelValue'],
   props: {
     noSelect: { type: Boolean, default: false },
     asSelect: { type: Boolean, default: false },
@@ -27,7 +31,16 @@ export default {
     label: { type: String, default: '' },
     prependIcon: { type: String, default: '' },
     appendIcon: { type: String, default: '' },
-    hint: { type: String, default: '' }
+    hint: { type: String, default: '' },
+    modelValue: { type: String, default: '' }
+  },
+  methods: {
+    change(e) {
+      this.$emit('update:modelValue', e.target.value)
+    },
+    blur(e) {
+      this.$emit('update:modelValue', e.target.value.trim())
+    }
   }
 }
 </script>
