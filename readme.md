@@ -140,3 +140,71 @@ export default {
 }
 </script>
 ```
+
+AutoComplete
+```html
+<template>
+  <div>
+    <QAutoComplete v-model="search"
+                   @change="searchEmails"
+                   :items="items"
+                   label="User Search:"
+                   placeholder="Search by name or email"
+                   prepend-icon="mdi-account-search ml-2 text-muted"
+                   :append-icon="isLoading ? 'mdi-spin mdi-loading text-dark':'mdi-spin mdi-loading text-white'"
+                   inset-icon-a
+                   inset-icon-p
+    >
+      <template #item="data">
+        <div class="d-flex action selectable p-1 rounded align-items-center" @click="select(data.item)">
+          <img :src="data.item.picture" height="45" class="rounded ml-1 elevation-2" />
+
+          <div class="ml-2 border-left">
+            <h6 class="m-0 border-bottom pl-1 pt-1">
+              {{ data.item.name }}
+            </h6>
+            <sup class="pl-1 text-muted">{{ data.item.email }}</sup>
+          </div>
+        </div>
+      </template>
+    </QAutoComplete>
+  </div>
+</template>
+
+<script>
+import { profileService } from '../../services/ProfileService'
+export default {
+  props: {
+    label: { type: String, default: 'Find User' },
+    size: { type: String, default: '45px' }
+  },
+  emits: ['submit', 'select'],
+  data() {
+    return {
+      search: '',
+      isLoading: false,
+      items: []
+    }
+  },
+  methods: {
+    async searchEmails() {
+      if (!this.search) {
+        return
+      }
+      this.isLoading = true
+      this.items = await profileService.findProfiles(this.search)
+      this.isLoading = false
+    },
+    select(user) {
+      this.search = user.name
+      this.$emit('select', user)
+    },
+    submit() {
+      if (this.search) {
+        this.$emit('submit', this.search)
+      }
+    }
+  }
+}
+</script>
+```
