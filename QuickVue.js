@@ -14,6 +14,7 @@ import QMenu from './lib/composable/QMenu.vue'
 import QList from './lib/composable/QList.vue'
 import QListItem from './lib/composable/QListItem.vue'
 import QSelect from './lib/composable/QSelect.vue'
+import QAutoComplete from './lib/composable/QAutoComplete.vue'
 import '@mdi/font/css/materialdesignicons.css'
 export * from './lib/utils'
 export * from './lib/components/Notifications/NotificationService'
@@ -37,5 +38,6 @@ export const QuickVue = {
     app.component('QListItem', QListItem)
     app.component('QSelect', QSelect)
     app.component('QMenu', QMenu)
+    app.component('QAutoComplete', QAutoComplete)
   }
 }
