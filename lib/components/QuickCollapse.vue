@@ -7,13 +7,15 @@
         :class="titleClass"
         :style="titleStyle"
       >
-        <i
-          class="fa fa-fw mr-2"
-          :class="{'fa-caret-right': !show, 'fa-caret-down': show}"
-        ></i>
-        <h5 class="m-0">
-          {{ title }}
-        </h5>
+        <slot name="trigger">
+          <i
+            class="fa fa-fw mr-2"
+            :class="{'fa-caret-right': !show, 'fa-caret-down': show}"
+          ></i>
+          <h5 class="m-0">
+            {{ title }}
+          </h5>
+        </slot>
       </div>
       <div v-if="add" class="action muted" @click="showForm = !showForm">
         <i class="fa fa-fw ml-1" :class="showForm ? addIcons.close : addIcons.open"></i>
@@ -32,7 +34,7 @@
 export default {
   name: 'QuickCollapse',
   props: {
-    title: { type: String, required: true },
+    title: { type: String, default: '' },
     open: Boolean,
     add: Boolean,
     addIcons: {

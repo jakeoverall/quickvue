@@ -1,6 +1,6 @@
 {
   "name": "@bcwdev/quickvue",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Common easy to use vue components for vue 3",
   "main": "QuickVue.js",
   "files": [
@@ -12,6 +12,9 @@
   "dependencies": {
     "@mdi/font": "^5.8.55",
     "@popperjs/core": "^2.5.4",
+    "dompurify": "^2.2.3",
+    "highlight.js": "^10.4.1",
+    "marked": "^1.2.5",
     "sweetalert2": "10.10.4"
   },
   "devDependencies": {
