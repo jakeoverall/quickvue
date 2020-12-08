@@ -8,7 +8,6 @@
              @blur="blur"
              :value="modelValue"
              class="form-control"
-             type="text"
              autocomplete="none"
       >
       <QIcon class="appended-icon" :icon="appendIcon" v-if="appendIcon" />

@@ -43,7 +43,7 @@ export default {
     const state = reactive({
       display: computed(() => {
         const label = typeof props.selected === 'string' || typeof props.selected === 'number' ? props.selected : ''
-        return props.selected[props.itemText] ? props.selected[props.itemText] : label
+        return props.selected ? props.selected[props.itemText] ? props.selected[props.itemText] : label : ''
       })
     })
     return {
