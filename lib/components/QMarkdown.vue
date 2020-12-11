@@ -1,9 +1,16 @@
 <template>
   <div>
     <div
-      class="markdown card p-2 mb-2 elevation-4"
-      v-html="parseMarkdown(mdString)"
+      class="markdown"
+      v-html="parseMarkdown()"
+      v-if="!edit"
     ></div>
+    <textarea
+      v-else
+      @input="change"
+      @blur="blur"
+      :value="modelValue"
+    ></textarea>
   </div>
 </template>
 
@@ -11,59 +18,72 @@
 import marked from 'marked'
 import hljs from 'highlight.js'
 import DOMpurify from 'dompurify'
-marked.setOptions({
-  renderer: new marked.Renderer(),
-  highlight: function(code, language) {
-    const validLanguage = hljs.getLanguage(language) ? language : 'plaintext'
-    return hljs.highlight(validLanguage, code).value
-  },
-  pedantic: false,
-  gfm: true,
-  breaks: false,
-  sanitize: false,
-  smartLists: true,
-  smartypants: false,
-  xhtml: false
-})
+import { UTILS } from '../utils'
+
 export default {
-  name: 'Markdown',
   props: {
-    mdString: {
+    edit: { type: Boolean, default: false },
+    debouce: { type: Number, default: 750 },
+    modelValue: {
       type: String,
       required: true,
       default: ''
+    },
+    config: {
+      type: Object,
+      default: () => {
+        return {
+          renderer: new marked.Renderer(),
+          pedantic: false,
+          gfm: true,
+          breaks: false,
+          sanitize: false,
+          smartLists: true,
+          smartypants: false,
+          xhtml: false
+        }
+      }
+    },
+    highlighter: {
+      type: Function,
+      default: () => {
+        return function(code, language) {
+          const validLanguage = hljs.getLanguage(language) ? language : 'plaintext'
+          return hljs.highlight(validLanguage, code).value
+        }
+      }
     },
     customStyles: {
       type: String,
       default: ''
     }
   },
-  setup(props) {
+  emits: ['update:modelValue'],
+  setup(props, { emit }) {
+    marked.setOptions({ highlight: props.highlighter, ...props.config })
+    function fire() {
+      emit('update:modelValue', event.target.value)
+    }
     return {
-      parseMarkdown(mdString) {
-        return DOMpurify.sanitize(marked(mdString) + `<style> ${props.customStyles} </style>`)
+      parseMarkdown() {
+        return DOMpurify.sanitize(marked(props.modelValue) + `<style> ${props.customStyles} </style>`)
+      },
+      change() {
+        UTILS.$debounce(fire, props.debounce)
+      },
+      blur() {
+        emit('update:modelValue', event.target.value.trim())
       }
     }
-  },
-  components: {}
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 @import url('~highlight.js/styles/atom-one-light.css');
-.outline{
-  height: 8vh;
-  overflow-y: hidden;
-}
-.current{
-  height: 50vh;
-  overflow-y: hidden;
-}
-h1{
-  text-align: left !important;
-  color: red !important
-}
-img {
-  max-width: 100vw;
+.markdown{
+  img {
+    max-width: 100%;
+  }
 }
 </style>
