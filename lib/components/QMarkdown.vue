@@ -79,7 +79,7 @@ export default {
         linkElem.rel = 'stylesheet'
       }
       linkElem.href = `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/styles/${props.theme}.min.css`
-    })
+    }, { immediate: true })
 
     // hljs.addPlugin(props.plugins)
     let md = ''
