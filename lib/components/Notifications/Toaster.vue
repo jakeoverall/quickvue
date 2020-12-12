@@ -1,7 +1,7 @@
 <template>
   <div class="toaster" :class="location">
     <transition-group name="notification-list" tag="div">
-      <q-toast
+      <QToast
         v-for="n in notifications"
         :key="n.id"
         :title="n.title"
@@ -17,7 +17,8 @@
 </template>
 
 <script>
-import { GETNOTIFICATIONS } from './NotificationService'
+import { reactive, computed } from 'vue'
+import { notifications } from './NotificationService'
 export default {
   props: {
     location: {
@@ -37,28 +38,17 @@ export default {
       default: 'top-right'
     }
   },
-  name: 'Toaster',
-  data() {
-    return {
-      notifications: GETNOTIFICATIONS()
-    }
-  },
-  watch: {
-    notifications: {
-      handler(val) {
-        this.$set(this.notifications, val)
-      },
-      deep: true
-    }
-  },
-  methods: {
-    remove(toast) {
-      const i = this.notifications.findIndex(n => n.id === toast.id)
-      if (i === -1) {
-        return
+  setup() {
+    return reactive({
+      notifications: computed(() => notifications),
+      remove(toast) {
+        const i = notifications.findIndex(n => n.id === toast.id)
+        if (i === -1) {
+          return
+        }
+        notifications.splice(i, 1)
       }
-      this.notifications.splice(i, 1)
-    }
+    })
   }
 }
 </script>
