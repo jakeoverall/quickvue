@@ -29,7 +29,7 @@ export default {
     debouce: { type: Number, default: 750 },
     minHeight: { type: Number, default: 500 },
     maxHeight: { type: Number, default: 500 },
-    autoGrow: { type: Boolean, default: true },
+    autoGrow: { type: Boolean, default: false },
     modelValue: {
       type: String,
       required: true,
@@ -59,7 +59,6 @@ export default {
         return hljs.highlight(validLanguage, code).value
       }
     },
-    plugins: { type: Object, default() { return {} } },
     theme: { type: String, default: 'night-owl' },
     customStyles: {
       type: String,
@@ -81,7 +80,6 @@ export default {
       linkElem.href = `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/styles/${props.theme}.min.css`
     }, { immediate: true })
 
-    // hljs.addPlugin(props.plugins)
     let md = ''
     function fire() {
       emit('update:modelValue', md)
