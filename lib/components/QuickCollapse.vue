@@ -3,7 +3,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <div
         @click="show = !show"
-        class="d-flex align-items-center flex-grow action muted no-select"
+        class="d-flex align-items-center flex-grow-1 action muted no-select w-100"
         :class="titleClass"
         :style="titleStyle"
       >
@@ -21,10 +21,10 @@
         <i class="fa fa-fw ml-1" :class="showForm ? addIcons.close : addIcons.open"></i>
       </div>
     </div>
-    <div class="slide-down" :class="{'open flex-grow-1': showForm}">
+    <div class="slide-down w-100" :class="{'open flex-grow-1': showForm}">
       <slot name="form"></slot>
     </div>
-    <div class="slide-down" :class="{'open flex-grow-1': show}">
+    <div class="slide-down w-100" :class="{'open flex-grow-1': show}">
       <slot v-if="show"></slot>
     </div>
   </div>
@@ -57,8 +57,13 @@ export default {
       showForm: false
     }
   },
-  mounted() {
-    this.show = this.open
+  watch: {
+    open: {
+      handler(val) {
+        this.show = val
+      },
+      immediate: true
+    }
   }
 }
 </script>
