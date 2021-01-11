@@ -7,18 +7,18 @@
         :class="titleClass"
         :style="titleStyle"
       >
-        <slot name="trigger">
-          <i
-            class="fa fa-fw mr-2"
-            :class="{'fa-caret-right': !show, 'fa-caret-down': show}"
-          ></i>
+        <slot name="trigger" :show="show">
+          <QIcon
+            class="mr-2"
+            :class="{'mdi-caret-right': !show, 'mdi-caret-down': show}"
+          />
           <h5 class="m-0">
             {{ title }}
           </h5>
         </slot>
       </div>
       <div v-if="add" class="action muted" @click="showForm = !showForm">
-        <i class="fa fa-fw ml-1" :class="showForm ? addIcons.close : addIcons.open"></i>
+        <QIcon class="ml-1" :icon="showForm ? addIcons.close : addIcons.open" />
       </div>
     </div>
     <div class="slide-down w-100" :class="{'open flex-grow-1': showForm}">
@@ -40,7 +40,7 @@ export default {
     addIcons: {
       type: Object,
       default() {
-        return { open: 'fa-plus-square', close: 'fa-minus-square' }
+        return { open: 'mdi-plus', close: 'mdi-minus' }
       }
     },
     titleClass: { type: String, default: '' },
