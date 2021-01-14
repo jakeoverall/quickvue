@@ -106,9 +106,9 @@ export default {
     .dialog-header{
       max-height: 10vh;
     }
-    .dialog-body{
-      max-height: 88vh;
-    }
+    // .dialog-body{
+    //   // max-height: 88vh;
+    // }
     .dialog-footer:not(:empty){
       border-top: 1px solid lightgrey;
       padding: .75rem;
