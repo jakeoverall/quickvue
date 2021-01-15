@@ -12,7 +12,6 @@
     @keydown.tab.exact.prevent="onTab"
     @keydown.shift.tab.exact.prevent="onShiftTab"
     :value="modelValue"
-    :style="{'min-height':minHeight+'px','max-height':maxHeight+'px'}"
   ></textarea>
 </template>
 
