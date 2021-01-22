@@ -8,12 +8,14 @@
       <slot />
     </div>
     <Teleport to="#root-dialog">
-      <div class="expando-content">
-        <QBtn class="icon fab" top="1rem" right="1rem" @click.stop="expand(false)">
-          <QIcon icon="mdi-close" />
-        </QBtn>
-        <slot name="expanded" :expanded="expanded" v-if="expanded"></slot>
-      </div>
+      <transition name="fade">
+        <div class="expanded-card" v-if="expanded">
+          <QBtn class="icon fab" top="12vh" right="12vw" @click.stop="expand(false)">
+            <QIcon icon="mdi-close" />
+          </QBtn>
+          <slot name="expanded"></slot>
+        </div>
+      </transition>
     </Teleport>
   </div>
 </template>
@@ -52,11 +54,6 @@ export default {
 .expandable-card{
   transition: all .3s linear;
   &.expanded{
-    .expando-content{
-      transform-origin: center;
-      transform: scale(1);
-      pointer-events: all;
-    }
     .trigger{
       position: fixed;
       opacity: 0;
@@ -67,21 +64,16 @@ export default {
     transition: all .3s linear;
     transform: scale(1);
   }
-  .expando-content{
-    transition: all .3s linear;
-    position: fixed;
-    top: 10vh;
-    right: 10vw;
-    width: 80vw;
-    height: 80vh;
-    z-index: 1;
-    transform: scale(0);
-    overflow-y: auto;
-    pointer-events: none;
-    > div {
-      height: 100%;
-    }
-  }
+}
+.expanded-card{
+  position: fixed;
+  transition: all .3s linear;
+  overflow-y: auto;
+  top: 10vh;
+  right: 10vw;
+  width: 80vw;
+  height: 80vh;
+  z-index: 1;
 }
 </style>
 <style lang="scss">
