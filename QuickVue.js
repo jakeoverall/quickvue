@@ -7,6 +7,7 @@ import QLog from './lib/monitoring/QLog.vue'
 import QAsync from './lib/composable/QAsync.vue'
 import QBtn from './lib/composable/QBtn.vue'
 import QDialog from './lib/composable/QDialog.vue'
+import QDialogCard from './lib/composable/QDialogCard.vue'
 import QIcon from './lib/composable/QIcon.vue'
 import QImg from './lib/composable/QImg.vue'
 import QInput from './lib/composable/QInput.vue'
@@ -26,6 +27,7 @@ export const QuickVue = {
   install(app) {
     app.component('QToaster', Toaster)
     app.component('QDialog', QDialog)
+    app.component('QDialogCard', QDialogCard)
     app.component('QCollapse', QuickCollapse)
     app.component('QView', QuickView)
     app.component('QToast', QuickToast)

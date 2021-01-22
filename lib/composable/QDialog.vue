@@ -28,7 +28,7 @@
 </template>
 
 <script>
-const { onBeforeMount, onBeforeUnmount, ref } = require('vue')
+const { onBeforeMount, onBeforeUnmount, ref, watchEffect } = require('vue')
 export default {
   props: {
     open: { type: Boolean, default: false },
@@ -46,6 +46,12 @@ export default {
     const contentElem = ref(null)
     onBeforeMount(getOrCreateModalRoot)
     onBeforeUnmount(removeHandlers)
+
+    watchEffect(() => {
+      if (props.open) {
+        document.body.classList.add('ex-overlay')
+      }
+    })
 
     function checkClickOutside(e) {
       if (props.open && !props.persistent && !contentElem.value.contains(e.target)) {
@@ -75,6 +81,7 @@ export default {
 
     function close() {
       emit('close')
+      document.body.classList.remove('ex-overlay')
     }
 
     return {
