@@ -10,7 +10,7 @@
     <Teleport to="#root-dialog">
       <transition name="fade">
         <div class="expanded-card" :class="dialogClass" v-if="expanded">
-          <QBtn class="icon fab" :class="closeClass" top="12vh" right="12vw" @click.stop="expand(false)">
+          <QBtn class="icon fab close-button" :class="closeClass" top="12vh" right="12vw" @click.stop="expand(false)">
             <QIcon icon="mdi-close" />
           </QBtn>
           <slot name="expanded"></slot>
@@ -78,6 +78,18 @@ export default {
   width: 80vw;
   height: 80vh;
   z-index: 1;
+  &.maximize{
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    width: 100vw;
+    .close-button{
+      top: 2vh;
+      right: 2vh;
+    }
+  }
 }
 </style>
 <style lang="scss">
