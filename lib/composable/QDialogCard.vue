@@ -86,8 +86,8 @@ export default {
     height: 100vh;
     width: 100vw;
     .close-button{
-      top: 2vh;
-      right: 2vh;
+      top: 2vh !important;
+      right: 2vh !important;
     }
   }
 }
