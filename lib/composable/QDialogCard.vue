@@ -9,7 +9,7 @@
     </div>
     <Teleport to="#root-dialog">
       <transition name="fade">
-        <div class="expanded-card" v-if="expanded">
+        <div class="expanded-card" :class="dialogClass" v-if="expanded">
           <QBtn class="icon fab" :class="closeClass" top="12vh" right="12vw" @click.stop="expand(false)">
             <QIcon icon="mdi-close" />
           </QBtn>
@@ -25,7 +25,8 @@ import { onBeforeMount, reactive, ref } from 'vue'
 
 export default {
   props: {
-    closeClass: { type: String, default: '' }
+    closeClass: { type: String, default: '' },
+    dialogClass: { type: String, default: '' }
   },
   setup() {
     let root = document.querySelector('#root-dialog')
