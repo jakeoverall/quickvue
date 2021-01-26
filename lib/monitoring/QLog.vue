@@ -27,12 +27,27 @@
                 <small class="log-label text-uppercase">
                   <QIcon :class="logIconColor(log.type)" small :icon="logIcon(log.type)" />
                 </small>
-                <div class="d-flex flex-wrap mx-1 flex-grow-1">
+                <div class="d-flex flex-wrap mx-1 flex-grow-1"
+                     style="width: 80vw;
+    white-space: pre-line;
+    word-break: break-word;"
+                >
                   <span
                     class="ml-1 mr-1"
                     v-for="(message,i) in log.items"
                     :key="log.id+i"
-                  >{{ message }} {{ log.items.length != i + 1 ? ',':'' }}</span>
+                  >
+                    <QCollapse v-if="message.startsWith('{') || message.startsWith('[')">
+                      <template #trigger="{show}">
+                        <QBtn class="icon">
+                          <QIcon :icon="show ? 'mdi-minus':'mdi-chevron-down'" />
+                          <span class="ml-2" v-if="!show">[OBJECT {{ message.slice(0,10) }}]</span>
+                        </QBtn>
+                      </template>
+                      <kbd class="p-3 rounded">{{ message }}</kbd>
+                    </QCollapse>
+                    <span v-else>{{ message }}{{ log.items.length != i + 1 ? ', ':'' }}</span>
+                  </span>
                 </div>
                 <span class="date px-2 timestamp">{{ date(log.date) }}</span>
               </div>

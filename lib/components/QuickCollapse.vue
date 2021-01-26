@@ -10,7 +10,7 @@
         <slot name="trigger" :show="show">
           <QIcon
             class="mr-2"
-            :class="{'mdi-caret-right': !show, 'mdi-caret-down': show}"
+            :class="{'mdi-minus': !show, 'mdi-chevron-down': show}"
           />
           <h5 class="m-0">
             {{ title }}
