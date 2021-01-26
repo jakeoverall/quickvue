@@ -32,22 +32,24 @@
     white-space: pre-line;
     word-break: break-word;"
                 >
-                  <span
+                  <div
                     class="ml-1 mr-1"
                     v-for="(message,i) in log.items"
                     :key="log.id+i"
                   >
-                    <QCollapse v-if="message.startsWith('{') || message.startsWith('[')">
+                    <QCollapse v-if="message.startsWith('{')">
                       <template #trigger="{show}">
-                        <QBtn class="icon">
+                        <QBtn class="text-white">
                           <QIcon :icon="show ? 'mdi-minus':'mdi-chevron-down'" />
-                          <span class="ml-2" v-if="!show">[OBJECT {{ message.slice(0,10) }}]</span>
+                          <span class="ml-2">[OBJECT {{ message.slice(0,5) }}]</span>
                         </QBtn>
                       </template>
-                      <kbd class="p-3 rounded">{{ message }}</kbd>
+                      <div class="p-3 bg-dark text-white rounded">
+                        {{ message }}
+                      </div>
                     </QCollapse>
                     <span v-else>{{ message }}{{ log.items.length != i + 1 ? ', ':'' }}</span>
-                  </span>
+                  </div>
                 </div>
                 <span class="date px-2 timestamp">{{ date(log.date) }}</span>
               </div>
@@ -167,6 +169,7 @@ export default {
 
   &.default{
     background: #1e1e1e;
+    color: whitesmoke;
     .top-bar{
       background: #2d2d2d;
     }
@@ -193,6 +196,7 @@ export default {
   &.dracula{
     background: #22212c;
     font-family: 'Fira Code', monospace;
+    color: whitesmoke;
     .top-bar{
       background: #2b2640;
     }
