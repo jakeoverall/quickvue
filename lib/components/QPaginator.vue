@@ -1,17 +1,29 @@
 <template>
-  <div class="paginator ">
+  <div class="paginator">
     <div class="pages d-flex align-items-center">
       <div class="flex-grow-1">
         <small class="text-muted">
           <slot name="stats" :results="results" :pager="pager" :page="page"></slot>
         </small>
       </div>
-      <div class="page" v-for="(p,i) in pager" :key="p+'__'+i">
-        <slot name="pages" :num="p" :index="i" :results="results">
-          <QBtn class="rounded mx-1" :class="page == p ? 'btn-primary': ' btn-outline-dark selectable selectable-dark'">
-            {{ p }}
+      <div class="pages">
+        <div class="page first-page" v-if="showJumps && pager[0] !== 1">
+          <QBtn class="rounded p-1 selectable selectable-dark" @click="jumpTo(1)">
+            <QIcon icon="mdi-chevron-double-left" />
           </QBtn>
-        </slot>
+        </div>
+        <div class="page" v-for="(p,i) in pager" :key="p+'__'+i">
+          <slot name="pages" :num="p" :index="i" :results="results">
+            <QBtn class="rounded mx-1" :class="page == p ? 'btn-primary': ' btn-outline-dark selectable selectable-dark'">
+              {{ p }}
+            </QBtn>
+          </slot>
+        </div>
+        <div class="page last-page" v-if="showJumps && pager[pager.length-1] !== pages">
+          <QBtn class="rounded p-1  selectable selectable-dark" @click="jumpTo(pages)">
+            <QIcon icon="mdi-chevron-double-right" />
+          </QBtn>
+        </div>
       </div>
     </div>
     <div class="results">
@@ -28,25 +40,41 @@ export default {
   props: {
     limit: { type: Number, default: 10 },
     page: { type: [Number, String], required: true },
-    items: { type: Array, required: true }
+    items: { type: Array, required: true },
+    chips: { type: Number, default: 6, min: 3, max: 20 },
+    showJumps: { type: Boolean, default: false }
   },
+  emits: ['jumpTo'],
   setup(props, { emit }) {
     const pages = computed(() => props.items.length % props.limit === 0 ? props.items.length / props.limit : ~~(props.items.length / props.limit) + 1)
     return reactive({
+      pages,
+      jumpTo(n) {
+        emit('jumpTo', n)
+      },
       pager: computed(() => {
-        const nums = [props.page]
+        const p = Number(props.page)
+        const nums = [p]
+        let max = props.chips
+        if (props.chips > pages.value) {
+          max = pages.value
+        }
+        if (props.showJumps) { max -= 2 }
         let i = 1
-        while (i <= 2) {
-          if (props.page + i <= pages.value) {
-            nums.push(props.page + i)
+        while (nums.length < max) {
+          let x = 0
+          if (p + i <= pages.value) {
+            nums.push(p + i)
+            x++
           }
-          if (props.page - i > 0) {
-            nums.unshift(props.page - i)
+          if (p - i > 0 && nums.length < max) {
+            nums.unshift(p - i)
+            x++
           }
           i++
+          if (i > max) { break }
+          if (x === 0) { break }
         }
-        if (nums[0] !== 1) { nums.unshift(1) }
-        if (nums[nums.length - 1] !== pages.value) { nums.push(pages.value) }
         return nums
       }),
       results: computed(() => props.items.slice((props.page - 1) * props.limit, props.page * props.limit))
