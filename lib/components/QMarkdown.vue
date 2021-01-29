@@ -29,6 +29,7 @@ export default {
     minHeight: { type: Number, default: 500 },
     maxHeight: { type: Number, default: 500 },
     autoGrow: { type: Boolean, default: false },
+    value: { type: String, default: '' },
     modelValue: {
       type: String,
       required: true,
@@ -103,7 +104,7 @@ export default {
     }
 
     return {
-      formatted: computed(() => DOMpurify.sanitize(marked(props.modelValue))),
+      formatted: computed(() => DOMpurify.sanitize(marked(props.modelValue || props.value))),
       change() {
         md = event.target.value
         UTILS.$debounce(fire, props.debounce)
