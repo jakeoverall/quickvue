@@ -41,7 +41,7 @@ export default {
     limit: { type: Number, default: 10 },
     page: { type: [Number, String], required: true },
     items: { type: Array, required: true },
-    chips: { type: Number, default: 6, min: 3, max: 20 },
+    chips: { type: Number, default: 6, min: 4, max: 20 },
     showJumps: { type: Boolean, default: false }
   },
   emits: ['jumpTo'],
@@ -59,7 +59,7 @@ export default {
         if (props.chips > pages.value) {
           max = pages.value
         }
-        if (props.showJumps) { max -= 2 }
+        if (props.showJumps && pages.value > max + 2) { max -= 2 }
         let i = 1
         while (nums.length < max) {
           let x = 0
@@ -72,6 +72,7 @@ export default {
             x++
           }
           i++
+          console.log(i, max, nums, pages.value)
           if (i > max) { break }
           if (x === 0) { break }
         }
