@@ -72,7 +72,6 @@ export default {
             x++
           }
           i++
-          console.log(i, max, nums, pages.value)
           if (i > max) { break }
           if (x === 0) { break }
         }
