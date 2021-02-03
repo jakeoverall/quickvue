@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { onBeforeMount, reactive, ref } from 'vue'
+import { onBeforeMount, onBeforeUnmount, reactive, ref } from 'vue'
 
 export default {
   props: {
@@ -32,6 +32,9 @@ export default {
     let root = document.querySelector('#root-dialog')
     const expanded = ref(false)
     onBeforeMount(getOrCreateModalRoot)
+    onBeforeUnmount(() => {
+      document.body.classList.remove('ex-overlay')
+    })
     function getOrCreateModalRoot() {
       if (!root) {
         root = document.createElement('div')

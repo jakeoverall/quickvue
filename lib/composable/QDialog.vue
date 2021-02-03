@@ -67,6 +67,7 @@ export default {
     function removeHandlers() {
       root.removeEventListener('click', checkClickOutside)
       document.removeEventListener('keydown', checkEsc)
+      close()
     }
 
     function getOrCreateModalRoot() {
