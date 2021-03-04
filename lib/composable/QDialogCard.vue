@@ -13,7 +13,7 @@
           <QBtn class="icon fab close-button" :class="closeClass" top="12vh" right="12vw" @click.stop="expand(false)">
             <QIcon icon="mdi-close" />
           </QBtn>
-          <slot name="expanded"></slot>
+          <slot name="expanded" :close="()=>expand(false)"></slot>
         </div>
       </transition>
     </Teleport>

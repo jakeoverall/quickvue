@@ -4,7 +4,7 @@
       <div class="dialog-container" :class="{open}" v-if="open">
         <div class="elevation-4 dialog-content" ref="contentElem" :class="{'flex-grow-1 w-100 fullscreen':fullscreen, 'rounded': !fullscreen}" :style="{'min-width': minWidth}">
           <div class="dialog-header">
-            <slot name="header">
+            <slot name="header" :close="()=> close()">
               <div class="p-2 w-100 d-flex align-items-center justify-content-between" v-if="!noHeader" :class="[{ 'rounded-top': !fullscreen}, theme]">
                 <span class="dialog-title clip-text">
                   {{ title }}
@@ -16,10 +16,10 @@
             </slot>
           </div>
           <div class="scrollable-y show-scroll dialog-body">
-            <slot />
+            <slot :close="()=> close()" />
           </div>
           <div class="dialog-footer">
-            <slot name="footer" />
+            <slot name="footer" :close="()=> close()" />
           </div>
         </div>
       </div>
