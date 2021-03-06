@@ -1,6 +1,6 @@
 {
   "name": "@bcwdev/quickvue",
-  "version": "0.2.35",
+  "version": "0.2.36",
   "description": "Common easy to use vue components for vue 3",
   "main": "QuickVue.js",
   "files": [
@@ -15,7 +15,7 @@
     "browser-image-compression": "^1.0.14",
     "dompurify": "^2.2.6",
     "highlight.js": "^10.5.0",
-    "marked": "^1.2.7",
+    "marked": "^2.0.1",
     "sweetalert2": "10.13.0"
   },
   "devDependencies": {
