@@ -31,7 +31,7 @@ export default {
     prependIcon: { type: String, default: '' },
     appendIcon: { type: String, default: '' },
     hint: { type: String, default: '' },
-    modelValue: { type: [String, Number, Boolean], default: '' }
+    modelValue: { type: [String, Number, Date], default: '' }
   },
   methods: {
     change() {
