@@ -9,7 +9,7 @@
     </div>
     <Teleport to="#root-dialog">
       <transition name="fade">
-        <div class="expanded-card" :class="dialogClass" v-if="expanded">
+        <div class="expanded-card" :class="[dialogClass, {'maximize': isMobile}]" v-if="expanded">
           <QBtn class="icon fab close-button" :class="closeClass" top="12vh" right="12vw" @click.stop="expand(false)">
             <QIcon icon="mdi-close" />
           </QBtn>
@@ -21,7 +21,8 @@
 </template>
 
 <script>
-import { onBeforeMount, onBeforeUnmount, reactive, ref } from 'vue'
+import { computed, onBeforeMount, onBeforeUnmount, reactive, ref } from 'vue'
+import { UTILS } from '../utils'
 
 export default {
   props: {
@@ -44,6 +45,7 @@ export default {
     }
     return reactive({
       expanded,
+      isMobile: computed(() => UTILS.isMobile),
       expand(val) {
         expanded.value = val
         if (expanded.value) {
@@ -91,6 +93,7 @@ export default {
     .close-button{
       top: 2vh !important;
       right: 2vh !important;
+      z-index: 5;
     }
   }
 }

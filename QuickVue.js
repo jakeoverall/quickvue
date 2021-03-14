@@ -19,6 +19,8 @@ import QAutoComplete from './lib/composable/QAutoComplete.vue'
 import QDate from './lib/composable/QDate.vue'
 import QMarkdown from './lib/components/QMarkdown.vue'
 import QPaginator from './lib/components/QPaginator.vue'
+import QSortable from './lib/components/QSortable.vue'
+import QWidget from './lib/components/QWidget.vue'
 import '@mdi/font/css/materialdesignicons.css'
 export * from './lib/utils'
 export * from './lib/components/Notifications/NotificationService'
@@ -47,5 +49,7 @@ export const QuickVue = {
     app.component('QMarkdown', QMarkdown)
     app.component('QPaginator', QPaginator)
     app.component('QDate', QDate)
+    app.component('QSortable', QSortable)
+    app.component('QWidget', QWidget)
   }
 }
