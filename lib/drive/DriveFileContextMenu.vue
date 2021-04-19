@@ -11,7 +11,7 @@
           <span>Details</span>
         </QListItem>
         <template #expanded>
-          <FileDetails :file="file" />
+          <DriveFileDetails :file="file" />
         </template>
       </QDialogCard>
       <div v-if="multiple.length == 1">

@@ -96,8 +96,8 @@ export default {
     display: none;
   }
   .media-preview {
-    height: 280px;
-    width: 280px;
+    height: 280px !important;
+    width: 280px !important;
     object-fit: contain;
     background-image: linear-gradient(45deg, #808080 25%, transparent 25%), linear-gradient(-45deg, #808080 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #808080 75%), linear-gradient(-45deg, transparent 75%, #808080 75%);
     background-size: 20px 20px;
