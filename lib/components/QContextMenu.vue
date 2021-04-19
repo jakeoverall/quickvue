@@ -75,23 +75,21 @@ export default {
 
 <style lang="scss" scoped>
 .context-menu {
-    position: fixed;
-    z-index: 999;
-    overflow: hidden;
-    background: #FFF;
-    border-radius: 4px;
-    min-width: 200px;
-    max-width: 500px;
-    max-height: 500px;
-    overflow: auto;
-    &:focus {
-        outline: none;
-    }
-
-    ul {
-      padding:0px;
-      margin:0px;
-    }
+  position: fixed;
+  z-index: 999;
+  overflow: hidden;
+  background: #FFF;
+  border-radius: 4px;
+  min-width: 200px;
+  max-width: 500px;
+  max-height: 500px;
+  overflow: auto;
+  &:focus {
+      outline: none;
+  }
+  ul {
+    padding:0px;
+    margin:0px;
+  }
 }
-
 </style>
