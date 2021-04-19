@@ -18,7 +18,7 @@
 
 <script>
 import { reactive, computed } from 'vue'
-import { notifications } from './NotificationService'
+import { notifications } from '../NotificationService'
 export default {
   props: {
     location: {

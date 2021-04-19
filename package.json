@@ -1,6 +1,6 @@
 {
   "name": "@bcwdev/quickvue",
-  "version": "0.2.37",
+  "version": "0.3.0-0",
   "description": "Common easy to use vue components for vue 3",
   "main": "QuickVue.js",
   "files": [
@@ -11,17 +11,18 @@
   "license": "ISC",
   "dependencies": {
     "@mdi/font": "^5.9.55",
-    "@popperjs/core": "^2.6.0",
+    "@popperjs/core": "^2.9.2",
     "browser-image-compression": "^1.0.14",
-    "dompurify": "^2.2.6",
-    "highlight.js": "^10.5.0",
-    "marked": "^2.0.1",
-    "sweetalert2": "10.13.0"
+    "dompurify": "^2.2.7",
+    "highlight.js": "^10.7.2",
+    "jszip": "^3.6.0",
+    "marked": "^2.0.3",
+    "sweetalert2": "10.16.3"
   },
   "devDependencies": {
-    "@vue/cli-plugin-eslint": "~4.5.11",
-    "@vue/cli-plugin-router": "~4.5.11",
-    "@vue/cli-service": "~4.5.11",
+    "@vue/cli-plugin-eslint": "~4.5.12",
+    "@vue/cli-plugin-router": "~4.5.12",
+    "@vue/cli-service": "~4.5.12",
     "@vue/compiler-sfc": "^3.0.5",
     "@vue/eslint-config-standard": "^6.0.0",
     "eslint": "^7.18.0",
