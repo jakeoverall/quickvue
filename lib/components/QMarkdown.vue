@@ -32,7 +32,6 @@ export default {
     value: { type: String, default: '' },
     modelValue: {
       type: String,
-      required: true,
       default: ''
     },
     config: {
