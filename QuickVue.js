@@ -5,6 +5,7 @@ export * from './lib/utils'
 export * from './lib/NotificationService'
 export * from './lib/monitoring/Logger'
 export * from './lib/DateFilters'
+export * from './lib/KeyHandler'
 
 export const QuickVue = {
   install(app, config = {

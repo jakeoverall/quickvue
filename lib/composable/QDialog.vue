@@ -28,8 +28,8 @@
 </template>
 
 <script>
+import { computed, onBeforeMount, onBeforeUnmount, ref, watchEffect } from '@vue/runtime-core'
 import { UTILS } from '../utils'
-const { onBeforeMount, onBeforeUnmount, ref, watchEffect, computed } = require('vue')
 
 export default {
   props: {
@@ -46,6 +46,7 @@ export default {
   setup(props, { emit }) {
     let root = document.querySelector('#root-dialog')
     const contentElem = ref(null)
+
     onBeforeMount(getOrCreateModalRoot)
     onBeforeUnmount(removeHandlers)
 

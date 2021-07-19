@@ -23,6 +23,7 @@
 <script>
 import { computed, onBeforeMount, onBeforeUnmount, reactive, ref } from 'vue'
 import { UTILS } from '../utils'
+import { KeyHandler, KEYS } from '../KeyHandler'
 
 export default {
   props: {
@@ -32,9 +33,12 @@ export default {
   setup() {
     let root = document.querySelector('#root-dialog')
     const expanded = ref(false)
+    const keyHandler = new KeyHandler()
+
     onBeforeMount(getOrCreateModalRoot)
     onBeforeUnmount(() => {
       document.body.classList.remove('ex-overlay')
+      keyHandler.destroy()
     })
     function getOrCreateModalRoot() {
       if (!root) {
@@ -43,17 +47,24 @@ export default {
         document.body.appendChild(root)
       }
     }
+
+    keyHandler.on(KEYS.escape, () => {
+      expand(false)
+    })
+
+    function expand(val) {
+      expanded.value = val
+      if (expanded.value) {
+        document.body.classList.add('ex-overlay')
+      } else {
+        document.body.classList.remove('ex-overlay')
+      }
+    }
+
     return reactive({
       expanded,
       isMobile: computed(() => UTILS.isMobile),
-      expand(val) {
-        expanded.value = val
-        if (expanded.value) {
-          document.body.classList.add('ex-overlay')
-        } else {
-          document.body.classList.remove('ex-overlay')
-        }
-      }
+      expand
     })
   }
 }

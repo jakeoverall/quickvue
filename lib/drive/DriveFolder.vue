@@ -57,7 +57,7 @@
 
 <script>
 import { computed, reactive, ref } from 'vue'
-import { Logger } from '@bcwdev/quickvue'
+import { Logger } from '../monitoring/Logger'
 import { DriveService, selectedFiles } from './DriveService'
 
 export default {

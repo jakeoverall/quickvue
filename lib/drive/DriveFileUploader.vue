@@ -115,7 +115,8 @@
 </template>
 
 <script>
-import { Logger, UTILS } from '@bcwdev/quickvue'
+import { UTILS } from '../utils'
+import { Logger } from '../monitoring/Logger'
 import { DriveService } from './DriveService'
 
 export default {
