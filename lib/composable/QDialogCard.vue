@@ -8,14 +8,12 @@
       <slot />
     </div>
     <Teleport to="#root-dialog">
-      <transition name="fade">
-        <div class="expanded-card" :class="[dialogClass, {'maximize': isMobile}]" v-if="expanded">
-          <QBtn class="icon fab close-button" :class="closeClass" top="12vh" right="12vw" @click.stop="expand(false)">
-            <QIcon icon="mdi-close" />
-          </QBtn>
-          <slot name="expanded" :close="()=>expand(false)"></slot>
-        </div>
-      </transition>
+      <div class="expanded-card" :class="[dialogClass, {'maximize': isMobile}]" v-if="expanded">
+        <QBtn class="icon fab close-button" :class="closeClass" top="12vh" right="12vw" @click.stop="expand(false)">
+          <QIcon icon="mdi-close" />
+        </QBtn>
+        <slot name="expanded" :close="()=>expand(false)"></slot>
+      </div>
     </Teleport>
   </div>
 </template>
