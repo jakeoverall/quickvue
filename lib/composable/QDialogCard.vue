@@ -8,7 +8,7 @@
       <slot />
     </div>
     <div v-if="expanded">
-      <XDialog :open="expanded"
+      <QDialog :open="expanded"
                @close="expanded = false"
                :min-width="minWidth"
                :fullscreen="fullscreen"
@@ -18,10 +18,13 @@
         <template #header>
           <slot name="header" />
         </template>
+        <template #tabs>
+          <slot name="tabs" />
+        </template>
         <template #default>
           <slot name="expanded" />
         </template>
-      </XDialog>
+      </QDialog>
     </div>
   </div>
 </template>
@@ -40,11 +43,6 @@ export default {
     const expanded = ref(false)
     function expand(val) {
       expanded.value = val
-      if (expanded.value) {
-        document.body.classList.add('ex-overlay')
-      } else {
-        document.body.classList.remove('ex-overlay')
-      }
     }
 
     return reactive({

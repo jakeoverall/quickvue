@@ -12,7 +12,9 @@
                     <QIcon icon="mdi-close" />
                   </QBtn>
                 </div>
+                <slot name="tabs" />
               </div>
+
               <div class="dialog-content card-body scrollable-y show-scroll" :class="dark ? 'bg-dark lighten-20' : 'bg-light'">
                 <slot :close="()=> close()" />
               </div>
