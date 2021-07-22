@@ -1,40 +1,38 @@
 <template>
-  <Teleport to="#root-dialog">
-    <div class="dialog-container" :class="{open}" v-if="open">
-      <div class="elevation-4 dialog-content" ref="contentElem" :class="{'flex-grow-1 w-100 fullscreen':fullscreen || isMobile, 'rounded': !fullscreen}" :style="{'min-width': minWidth}">
-        <div class="dialog-header">
-          <slot name="header" :close="()=> close()">
-            <div class="p-2 w-100 d-flex align-items-center justify-content-between" v-if="!noHeader" :class="[{ 'rounded-top': !fullscreen}, theme]">
-              <span class="dialog-title clip-text">
-                {{ title }}
-              </span>
-              <QBtn class="icon text-light stroke" @click="close">
-                <QIcon icon="mdi-close" />
-              </QBtn>
+  <div v-if="open">
+    <Teleport to="#root-dialog">
+      <div class="dialog-container">
+        <div class="content-elem" ref="contentElem" :class="{'flex-grow-1 w-100 fullscreen':fullscreen}" :style="{'min-width': minWidth}">
+          <div class="dialog-body h-100">
+            <div class="rounded elevation-4 h-100" :class="dark ? 'bg-dark' : 'bg-white'">
+              <div class="border-bottom sticky-top" :class="dark ? 'bg-dark border-dark' : ''">
+                <div class="p-3 mx-4 d-flex align-items-center justify-content-between">
+                  <slot name="header" />
+                  <QBtn icon @click="close" class="f-20" :class="dark ? 'bg-dark text-white' : ''">
+                    <QIcon icon="mdi-close" />
+                  </QBtn>
+                </div>
+              </div>
+              <div class="dialog-content card-body scrollable-y show-scroll" :class="dark ? 'bg-dark lighten-20' : 'bg-light'">
+                <slot :close="()=> close()" />
+              </div>
             </div>
-          </slot>
-        </div>
-        <div class="scrollable-y show-scroll dialog-body">
-          <slot :close="()=> close()" />
-        </div>
-        <div class="dialog-footer">
-          <slot name="footer" :close="()=> close()" />
+          </div>
         </div>
       </div>
-    </div>
-  </Teleport>
+    </Teleport>
+  </div>
 </template>
 
 <script>
-import { computed, onBeforeMount, onBeforeUnmount, ref, watchEffect } from '@vue/runtime-core'
-import { UTILS } from '../utils'
+import { onBeforeMount, onBeforeUnmount, ref, watchEffect } from '@vue/runtime-core'
 
 export default {
   props: {
     open: { type: Boolean, default: false },
     persistent: { type: Boolean, default: false },
-    noHeader: { type: Boolean, default: false },
     fullscreen: { type: Boolean, default: false },
+    dark: { type: Boolean, default: false },
     transition: { type: String, default: 'fade' },
     title: { type: String, default: '' },
     theme: { type: String, default: 'bg-primary text-light' },
@@ -90,8 +88,7 @@ export default {
 
     return {
       contentElem,
-      close,
-      isMobile: computed(() => UTILS.isMobile)
+      close
     }
   }
 }
@@ -107,25 +104,33 @@ export default {
   align-items: center;
   justify-content: center;
   z-index: 9;
-  .dialog-title{
-    font-size: 1.5rem;
-    font-weight: 500;
-    font-family: "Roboto" sans-serif;
+  .content-elem{
+    max-width: 90vw;
+    max-height: 90vh;
   }
   .dialog-content{
-    background-color: white;
     min-width: var(--minWidth);
-    .dialog-header{
-      max-height: 10vh;
+    max-height: calc(90vh - 80px);
+  }
+}
+
+@media screen AND (max-width: 768px) {
+  .dialog-container{
+    .content-elem{
+      width: 100vw;
+      height: 100vh;
+      max-width: 100vw;
+      max-height: 100vh;
+      .dialog-content{
+        max-height: calc(100vh - 80px);
+      }
     }
-    // .dialog-body{
-    //   // max-height: 88vh;
-    // }
-    .dialog-footer:not(:empty){
-      border-top: 1px solid lightgrey;
-      padding: .75rem;
-      max-height: 10vh;
+    .dialog-content{
+      width: 100%;
+      height: 100%;
+      border-radius: 0 !important;
     }
   }
 }
+
 </style>
