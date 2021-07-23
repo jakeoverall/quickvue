@@ -1,33 +1,29 @@
 <template>
-  <div v-if="open">
-    <Teleport to="#root-dialog">
-      <div class="dialog-container">
-        <div class="content-elem" ref="contentElem" :class="{'flex-grow-1 w-100 fullscreen':fullscreen}" :style="{'min-width': minWidth}">
-          <div class="dialog-body h-100">
-            <div class="rounded elevation-4 h-100" :class="dark ? 'bg-dark' : 'bg-white'">
-              <div class="border-bottom sticky-top" :class="dark ? 'bg-dark border-dark' : ''">
-                <div class="p-3 mx-4 d-flex align-items-center justify-content-between">
-                  <slot name="header" />
-                  <QBtn icon @click="close" class="f-20" :class="dark ? 'bg-dark text-white' : ''">
-                    <QIcon icon="mdi-close" />
-                  </QBtn>
-                </div>
-                <slot name="tabs" />
-              </div>
-
-              <div class="dialog-content card-body scrollable-y show-scroll" :class="dark ? 'bg-dark lighten-20' : 'bg-light'">
-                <slot :close="()=> close()" />
-              </div>
+  <div class="dialog-container" v-if="open">
+    <div class="content-elem" ref="contentElem" :class="{'flex-grow-1 w-100 fullscreen':fullscreen}" :style="{'min-width': minWidth}">
+      <div class="dialog-body h-100">
+        <div class="rounded elevation-4 h-100" :class="dark ? 'bg-dark' : 'bg-white'">
+          <div class="border-bottom" :class="dark ? 'bg-dark border-dark' : ''">
+            <div class="p-3 mx-4 d-flex align-items-center justify-content-between">
+              <slot name="header" />
+              <QBtn icon @click="close" class="f-20" :class="dark ? 'bg-dark text-white' : ''">
+                <QIcon icon="mdi-close" />
+              </QBtn>
             </div>
+            <slot name="tabs" :close="()=> close()" />
+          </div>
+
+          <div class="dialog-content card-body scrollable-y show-scroll" :class="dark ? 'bg-dark lighten-20' : 'bg-light'">
+            <slot :close="()=> close()" />
           </div>
         </div>
       </div>
-    </Teleport>
+    </div>
   </div>
 </template>
 
 <script>
-import { onBeforeMount, onBeforeUnmount, ref, watchEffect } from '@vue/runtime-core'
+import { onBeforeUnmount, onMounted, ref, watchEffect } from '@vue/runtime-core'
 
 export default {
   props: {
@@ -42,10 +38,11 @@ export default {
   },
   emits: ['close'],
   setup(props, { emit }) {
-    let root = document.querySelector('#root-dialog')
+    let root = null
     const contentElem = ref(null)
+    const ready = ref(false)
 
-    onBeforeMount(getOrCreateModalRoot)
+    onMounted(getOrCreateModalRoot)
     onBeforeUnmount(removeHandlers)
 
     watchEffect(() => {
@@ -57,46 +54,67 @@ export default {
     })
 
     function checkClickOutside(e) {
-      if (props.open && !props.persistent && !contentElem.value.contains(e.target)) {
-        close()
-      }
+      try {
+        if (props.open && !props.persistent && !contentElem.value.contains(e.target)) {
+          close()
+        }
+      } catch (e) {}
     }
     function checkEsc(e) {
-      if (props.open && e.which === 27 && !props.persistent) {
-        close()
-      }
+      try {
+        if (props.open && e.which === 27 && !props.persistent) {
+          close()
+        }
+      } catch (e) {}
     }
 
     function removeHandlers() {
-      root.removeEventListener('click', checkClickOutside)
-      document.removeEventListener('keydown', checkEsc)
-      close()
+      try {
+        root.removeEventListener('click', checkClickOutside)
+        document.removeEventListener('keydown', checkEsc)
+        close()
+      } catch (e) {}
     }
 
     function getOrCreateModalRoot() {
-      if (!root) {
-        root = document.createElement('div')
-        root.id = 'root-dialog'
-        document.body.appendChild(root)
-      }
-      root.addEventListener('click', checkClickOutside)
-      window.addEventListener('keydown', checkEsc)
+      try {
+        root = document.querySelector('#root-dialog')
+        if (!root) {
+          root = document.createElement('div')
+          root.id = 'root-dialog'
+          document.body.appendChild(root)
+        }
+        ready.value = true
+        root.addEventListener('click', checkClickOutside)
+        window.addEventListener('keydown', checkEsc)
+      } catch (e) {}
     }
 
     function close() {
-      emit('close')
-      document.body.classList.remove('ex-overlay')
+      try {
+        emit('close')
+        document.body.classList.remove('ex-overlay')
+      } catch (e) {}
     }
 
     return {
       contentElem,
-      close
+      close,
+      ready
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
+@keyframes open{
+  0%{
+    transform: scale(0);
+  }
+  100%{
+    transform: scale(1);
+  }
+}
 .dialog-container {
   position: fixed;
   top:0; right: 0; bottom: 0; left: 0;
@@ -107,8 +125,9 @@ export default {
   justify-content: center;
   z-index: 9;
   .content-elem{
+    animation: open .15s linear;
     max-width: 90vw;
-    max-height: 90vh;
+    max-height: 90vh
   }
   .dialog-content{
     min-width: var(--minWidth);

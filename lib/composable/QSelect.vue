@@ -5,7 +5,7 @@
         no-select
         as-select
         readonly
-        v-model="state.display"
+        v-model="display"
         :inset-icon-p="insetIconP"
         :inset-icon-a="insetIconA"
         :prepend-icon="prependIcon"
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { reactive, computed } from 'vue'
+import { ref, watchEffect } from 'vue'
 export default {
   props: {
     selected: { type: [Object, String, Number], default: () => null },
@@ -42,14 +42,12 @@ export default {
   emits: ['select'],
   inheritAttrs: false,
   setup(props, context) {
-    const state = reactive({
-      display: computed(() => {
-        const label = typeof props.selected === 'string' || typeof props.selected === 'number' ? props.selected : ''
-        return props.selected ? props.selected[props.itemText] ? props.selected[props.itemText] : label : ''
-      })
+    const display = ref('')
+    watchEffect(() => {
+      display.value = props.selected ? props.selected[props.itemText] : props.selected
     })
     return {
-      state,
+      display,
       onSelect(item) {
         context.emit('select', item)
       }
