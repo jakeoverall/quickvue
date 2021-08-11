@@ -2,9 +2,8 @@
   <div
     class="expandable-card"
     :class="{expanded}"
-    @click="expand(true)"
   >
-    <div class="trigger">
+    <div class="trigger" @click="expand(true)">
       <slot />
     </div>
     <div v-if="expanded">

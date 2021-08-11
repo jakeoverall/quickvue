@@ -1,6 +1,6 @@
 <template>
-  <div class="dialog-container" v-if="open">
-    <div class="content-elem" ref="contentElem" :class="{'flex-grow-1 w-100 fullscreen':fullscreen}" :style="{'min-width': minWidth}">
+  <div class="dialog-container" v-if="open" :class="{fullscreen}">
+    <div class="content-elem" ref="contentElem" :style="{'min-width': minWidth}" v-bind="$attrs">
       <div class="dialog-body h-100">
         <div class="rounded elevation-4 h-100" :class="dark ? 'bg-dark' : 'bg-white'">
           <div class="border-bottom" :class="dark ? 'bg-dark border-dark' : ''">
@@ -13,7 +13,7 @@
             <slot name="tabs" :close="()=> close()" />
           </div>
 
-          <div class="dialog-content card-body scrollable-y show-scroll" :class="dark ? 'bg-dark lighten-20' : 'bg-light'">
+          <div class="dialog-content scrollable-y show-scroll" :class="dark ? 'bg-dark lighten-20' : 'bg-light'">
             <slot :close="()=> close()" />
           </div>
         </div>
@@ -37,6 +37,7 @@ export default {
     minWidth: { type: String, default: '35vw' }
   },
   emits: ['close'],
+  inheritAttrs: false,
   setup(props, { emit }) {
     let root = null
     const contentElem = ref(null)
@@ -132,6 +133,18 @@ export default {
   .dialog-content{
     min-width: var(--minWidth);
     max-height: calc(90vh - 80px);
+  }
+  &.fullscreen{
+    .content-elem{
+      animation: open .15s linear;
+      max-width: 100vw;
+      max-height: 100vh
+    }
+    .dialog-content{
+      min-width: 100vw;
+      max-height: 100vh;
+      padding: 0 !important;
+    }
   }
 }
 
