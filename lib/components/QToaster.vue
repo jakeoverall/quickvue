@@ -40,13 +40,13 @@ export default {
   },
   setup() {
     return {
-      notifications: computed(() => notifications),
+      notifications: computed(() => notifications.list),
       remove(toast) {
-        const i = notifications.findIndex(n => n.id === toast.id)
+        const i = notifications.list.findIndex(n => n.id === toast.id)
         if (i === -1) {
           return
         }
-        notifications.splice(i, 1)
+        notifications.list.splice(i, 1)
       }
     }
   }

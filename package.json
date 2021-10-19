@@ -1,6 +1,6 @@
 {
   "name": "@bcwdev/quickvue",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Common easy to use vue components for vue 3",
   "main": "QuickVue.js",
   "files": [
@@ -17,7 +17,8 @@
     "highlight.js": "^11.3.1",
     "jszip": "^3.7.1",
     "marked": "^3.0.7",
-    "sweetalert2": "11.1.9"
+    "sweetalert2": "11.1.9",
+    "vue": "3.2.20"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "1.9.3",
@@ -27,7 +28,6 @@
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-vue": "7.19.1",
     "sass": "1.32.4",
-    "vite": "2.6.10",
-    "vue": "3.2.20"
+    "vite": "2.6.10"
   }
 }
