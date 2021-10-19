@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { reactive, computed } from 'vue'
+import { computed } from 'vue'
 import { notifications } from '../NotificationService'
 export default {
   props: {
@@ -39,8 +39,8 @@ export default {
     }
   },
   setup() {
-    return reactive({
-      notifications: computed(() => notifications.list),
+    return {
+      notifications: computed(() => notifications),
       remove(toast) {
         const i = notifications.findIndex(n => n.id === toast.id)
         if (i === -1) {
@@ -48,7 +48,7 @@ export default {
         }
         notifications.splice(i, 1)
       }
-    })
+    }
   }
 }
 </script>
