@@ -1,12 +1,13 @@
 <template>
   <div class="sortable" dropzone="sortable" @dragover.prevent>
-    <div v-for="(item, i) in items"
-         :key="item.id"
-         draggable="true"
-         @dragstart="onDragStart(i)"
-         @dragover.prevent="onDragOver(i)"
-         @dragend.prevent="onDragEnd"
-         @drop.prevent="onDrop"
+    <div
+      v-for="(item, i) in items"
+      :key="item.id"
+      draggable="true"
+      @dragstart="onDragStart(i)"
+      @dragover.prevent="onDragOver(i)"
+      @dragend.prevent="onDragEnd"
+      @drop.prevent="onDrop"
     >
       <slot name="items" :item="item" />
     </div>
@@ -14,7 +15,9 @@
 </template>
 
 <script>
-import { reactive, ref, watchEffect } from '@vue/reactivity'
+import { reactive, ref } from '@vue/reactivity'
+import { watchEffect } from '@vue/runtime-core'
+
 export default {
   props: {
     items: { type: Array, default: () => [] }
@@ -72,24 +75,24 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.sortable{
+.sortable {
   display: flex;
   flex-wrap: wrap;
-  div{
+  div {
     margin-bottom: 1rem;
     cursor: pointer;
     transition: all 0.2s linear;
     &.dragging {
-      transform: scale(0.9) rotateZ(.5deg);
+      transform: scale(0.9) rotateZ(0.5deg);
       opacity: 0.3;
       outline: 1px dashed rgba(128, 128, 128, 0.507);
     }
     &.enter-left {
-      transform: translateX(5px) rotateZ(.5deg);
+      transform: translateX(5px) rotateZ(0.5deg);
       border-left: 5px dashed rgba(128, 128, 128, 0.507);
     }
     &.enter-right {
-      transform: translateX(-5px) rotateZ(-.5deg);
+      transform: translateX(-5px) rotateZ(-0.5deg);
       border-right: 5px dashed rgba(128, 128, 128, 0.507);
     }
   }

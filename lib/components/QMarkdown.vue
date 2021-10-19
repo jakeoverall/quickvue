@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="__q-md-renderer__"
-    v-html="formatted"
-    v-if="!edit"
-  ></div>
+  <div class="__q-md-renderer__" v-html="formatted" v-if="!edit"></div>
   <textarea
     v-else
     class="form-control __q-md-editor__"
@@ -20,7 +16,8 @@ import marked from 'marked'
 import hljs from 'highlight.js'
 import DOMpurify from 'dompurify'
 import { UTILS } from '../utils'
-import { computed, watch } from '@vue/reactivity'
+import { computed } from '@vue/reactivity'
+import { watch } from '@vue/runtime-core'
 
 export default {
   props: {
@@ -142,16 +139,17 @@ export default {
 </script>
 
 <style lang="scss">
-.__q-md-renderer__{
+.__q-md-renderer__ {
   img {
     max-width: 100%;
   }
-  pre{
+  pre {
     border-radius: 5px;
-    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2),
+      0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
   }
 }
-.__q-md-editor__{
+.__q-md-editor__ {
   resize: vertical;
 }
 </style>

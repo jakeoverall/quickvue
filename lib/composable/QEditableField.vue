@@ -31,7 +31,8 @@
 
 <script>
 
-import { ref, watchEffect } from '@vue/reactivity'
+import { ref } from '@vue/reactivity'
+import { watchEffect } from '@vue/runtime-core'
 
 export default {
   props: {

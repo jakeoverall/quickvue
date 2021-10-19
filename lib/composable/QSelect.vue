@@ -1,5 +1,5 @@
 <template>
-  <QMenu close-on-click :offset-y="hint ? '-1.9rem':''">
+  <QMenu close-on-click :offset-y="hint ? '-1.9rem' : ''">
     <template #trigger>
       <QInput
         no-select
@@ -16,9 +16,14 @@
       />
     </template>
     <QList class="card scrollable-y no-select">
-      <QListItem class="selectable w-100" v-for="(item,i) in items" :key="item.id ? item.id : item+i" @click="onSelect(item)">
+      <QListItem
+        class="selectable w-100"
+        v-for="(item, i) in items"
+        :key="item.id ? item.id : item + i"
+        @click="onSelect(item)"
+      >
         <slot name="item" :item="item">
-          {{ item[itemText] ? item[itemText]: item }}
+          {{ item[itemText] ? item[itemText] : item }}
         </slot>
       </QListItem>
     </QList>
@@ -26,7 +31,9 @@
 </template>
 
 <script>
-import { ref, watchEffect } from '@vue/reactivity'
+import { ref } from '@vue/reactivity'
+import { watchEffect } from '@vue/runtime-core'
+
 export default {
   props: {
     selected: { type: [Object, String, Number], default: () => null },
@@ -57,10 +64,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.selectable{
+.selectable {
   background-color: inherit;
-  transition: background-color .15s linear;
-  &:hover{
+  transition: background-color 0.15s linear;
+  &:hover {
     background-color: var(--grey);
     cursor: pointer;
     border-radius: 0;

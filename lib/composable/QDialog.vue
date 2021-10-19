@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import { ref, watchEffect } from '@vue/reactivity'
-import { onBeforeUnmount, onMounted } from '@vue/runtime-core'
+import { ref } from '@vue/reactivity'
+import { onBeforeUnmount, onMounted, watchEffect } from '@vue/runtime-core'
 
 export default {
   props: {

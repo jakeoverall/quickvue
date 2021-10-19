@@ -106,8 +106,9 @@
 </template>
 
 <script>
-import { computed, ref, watchEffect } from '@vue/reactivity'
+import { computed, ref } from '@vue/reactivity'
 import { logs } from './Logger.js'
+import { watchEffect } from '@vue/runtime-core'
 
 export default {
   props: {
