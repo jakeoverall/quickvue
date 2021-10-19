@@ -26,17 +26,17 @@
           </div>
           <div class="logs scrollable-y show-scroll">
             <div
-              v-for="log in logs"
-              :class="log.type + '-type'"
-              :key="log.id"
+              v-for="entry in list"
+              :class="entry.type + '-type'"
+              :key="entry.id"
               class="py-1 log-message"
             >
               <div class="d-flex justify-content-between px-2">
                 <small class="log-label text-uppercase">
                   <QIcon
-                    :class="logIconColor(log.type)"
+                    :class="logIconColor(entry.type)"
                     small
-                    :icon="logIcon(log.type)"
+                    :icon="logIcon(entry.type)"
                   />
                 </small>
                 <div
@@ -49,8 +49,8 @@
                 >
                   <div
                     class="ml-1 mr-1"
-                    v-for="(message, i) in log.items"
-                    :key="log.id + i"
+                    v-for="(message, i) in entry.items"
+                    :key="entry.id + i"
                   >
                     <QCollapse v-if="message.startsWith('{')">
                       <template #trigger="{ show }">
@@ -69,11 +69,11 @@
                     </QCollapse>
                     <span v-else
                       >{{ message
-                      }}{{ log.items.length != i + 1 ? ", " : "" }}</span
+                      }}{{ entry.items.length != i + 1 ? ", " : "" }}</span
                     >
                   </div>
                 </div>
-                <span class="date px-2 timestamp">{{ date(log.date) }}</span>
+                <span class="date px-2 timestamp">{{ date(entry.date) }}</span>
               </div>
             </div>
           </div>
@@ -107,13 +107,12 @@
 
 <script>
 import { computed, ref } from '@vue/reactivity'
-import { logs } from './Logger.js'
 import { watchEffect } from '@vue/runtime-core'
 
 export default {
   props: {
     show: { type: Boolean, required: true },
-    log: { type: Array, default: () => [] }
+    log: { type: Array, default() { return [] } }
   },
   setup(props, { emit }) {
     const THEME_KEY = 'logger_theme'
@@ -127,7 +126,7 @@ export default {
       open,
       theme,
       themes: ['default', 'dracula'],
-      logs: computed(() => logs),
+      list: computed(() => [...props.log]),
       logIcon(type) {
         if (type === 'error') {
           return 'mdi-close-circle'

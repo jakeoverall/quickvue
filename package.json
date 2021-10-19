@@ -1,6 +1,6 @@
 {
   "name": "@bcwdev/quickvue",
-  "version": "1.0.12-1",
+  "version": "1.0.12-2",
   "description": "Common easy to use vue components for vue 3",
   "main": "QuickVue.js",
   "files": [
