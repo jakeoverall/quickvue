@@ -26,7 +26,7 @@
           </div>
           <div class="logs scrollable-y show-scroll">
             <div
-              v-for="entry in list"
+              v-for="entry in log"
               :class="entry.type + '-type'"
               :key="entry.id"
               class="py-1 log-message"
@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import { computed, ref } from '@vue/reactivity'
+import { ref } from '@vue/reactivity'
 import { watchEffect } from '@vue/runtime-core'
 
 export default {
@@ -126,7 +126,6 @@ export default {
       open,
       theme,
       themes: ['default', 'dracula'],
-      list: computed(() => [...props.log]),
       logIcon(type) {
         if (type === 'error') {
           return 'mdi-close-circle'
