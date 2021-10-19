@@ -1,33 +1,34 @@
 <template>
-  <div class="drive-searchbar d-flex align-items-center border-bottom px-4 py-2">
+  <div
+    class="drive-searchbar d-flex align-items-center border-bottom px-4 py-2"
+  >
     <QBtn
       class="text-dark lighten-10 p-1"
-      :to="{name: 'Drive', params: {key: root}}"
+      :to="{ name: 'Drive', params: { key: root } }"
       dropzone="files"
-      @drop.prevent="moveFiles(root,-1)"
+      @drop.prevent="moveFiles(root, -1)"
     >
-      <b class="text-normal f-12">
-        My Drive /
-      </b>
+      <b class="text-normal f-12"> My Drive / </b>
     </QBtn>
-    <QBtn class="text-dark lighten-10 p-1"
-          v-for="(link,i) in crumbs"
-          :key="link.path"
-          :to="{name: 'Drive', params: {key: link.path}}"
-          dropzone="files"
-          @drop.prevent="moveFiles(link.path, i)"
+    <QBtn
+      class="text-dark lighten-10 p-1"
+      v-for="(link, i) in crumbs"
+      :key="link.path"
+      :to="{ name: 'Drive', params: { key: link.path } }"
+      dropzone="files"
+      @drop.prevent="moveFiles(link.path, i)"
     >
-      <QIcon class="mr-2" :icon="i === crumbs.length-1 ? 'mdi-folder-open': 'mdi-folder'" />
-      <b class="text-normal f-12">
-        {{ link.name }} /
-      </b>
+      <QIcon
+        class="mr-2"
+        :icon="i === crumbs.length - 1 ? 'mdi-folder-open' : 'mdi-folder'"
+      />
+      <b class="text-normal f-12"> {{ link.name }} / </b>
     </QBtn>
   </div>
 </template>
 
 <script>
-import { reactive } from '@vue/reactivity'
-import { computed } from '@vue/runtime-core'
+import { reactive, computed } from '@vue/reactivity'
 import { DriveService } from './DriveService'
 export default {
   props: {
@@ -62,10 +63,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.text-normal{
+.text-normal {
   text-transform: none !important;
 }
-.drive-searchbar a:last-child{
+.drive-searchbar a:last-child {
   border-bottom: 3px solid var(--primary);
   border-radius: 0;
 }

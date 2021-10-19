@@ -106,11 +106,13 @@
 </template>
 
 <script>
-import { computed, ref, watchEffect } from '@vue/runtime-core'
-import { Logger } from './Logger'
+import { computed, ref, watchEffect } from '@vue/reactivity'
+import { logs } from './Logger.js'
+
 export default {
   props: {
-    show: { type: Boolean, required: true }
+    show: { type: Boolean, required: true },
+    log: { type: Array, default: () => [] }
   },
   setup(props, { emit }) {
     const THEME_KEY = 'logger_theme'
@@ -124,7 +126,7 @@ export default {
       open,
       theme,
       themes: ['default', 'dracula'],
-      logs: computed(() => Logger.logs),
+      logs: computed(() => logs),
       logIcon(type) {
         if (type === 'error') {
           return 'mdi-close-circle'
@@ -151,7 +153,7 @@ export default {
         emit('closed')
       },
       clear() {
-        Logger.clear()
+        emit('clear')
       }
 
     }

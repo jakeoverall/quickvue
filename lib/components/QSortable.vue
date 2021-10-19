@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { reactive, ref, watchEffect } from '@vue/runtime-core'
+import { reactive, ref, watchEffect } from '@vue/reactivity'
 export default {
   props: {
     items: { type: Array, default: () => [] }

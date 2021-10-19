@@ -1,4 +1,4 @@
-import { reactive } from '@vue/runtime-core'
+import { reactive } from '@vue/reactivity'
 
 // NOTE AppState is a reactive object to contain app level data
 export const AppState = reactive({

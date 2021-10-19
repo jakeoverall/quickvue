@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { computed, reactive } from '@vue/runtime-core'
+import { computed, reactive } from '@vue/reactivity'
 export default {
   props: {
     limit: { type: Number, default: 10 },

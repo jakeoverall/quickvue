@@ -15,14 +15,14 @@
         </template>
       </QDialogCard>
       <div v-if="multiple.length == 1">
-        <hr class="m-1">
+        <hr class="m-1" />
         <QListItem class="selectable" @click="copyLink(file.url)">
           <QIcon icon="mdi-link mx-3 text-muted" />
           <span>Copy Link</span>
         </QListItem>
       </div>
 
-      <hr class="m-1">
+      <hr class="m-1" />
       <QListItem class="selectable" @click="removeFile">
         <QIcon icon="mdi-delete mx-3 text-muted" />
         <span>Delete</span>
@@ -32,10 +32,9 @@
 </template>
 
 <script>
-import { reactive, ref } from '@vue/reactivity'
+import { reactive, ref, computed } from '@vue/reactivity'
 import { dateFilter } from '../DateFilters'
 import { DriveService, selectedFiles } from './DriveService'
-import { computed } from '@vue/runtime-core'
 import { UTILS } from '../utils'
 
 export default {
@@ -78,5 +77,4 @@ export default {
 </script>
 
 <style>
-
 </style>

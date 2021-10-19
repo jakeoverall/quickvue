@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { ref, watchEffect } from '@vue/runtime-core'
+import { ref, watchEffect } from '@vue/reactivity'
 export default {
   props: {
     modelValue: { type: Boolean, default: false },

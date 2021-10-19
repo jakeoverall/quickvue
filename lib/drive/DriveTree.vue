@@ -1,8 +1,9 @@
 <template>
-  <div class="card h-100 tree-container position-relative"
-       @contextmenu.prevent
-       @dragover.prevent="onDragOver"
-       @drop.prevent="checkFiles"
+  <div
+    class="card h-100 tree-container position-relative"
+    @contextmenu.prevent
+    @dragover.prevent="onDragOver"
+    @drop.prevent="checkFiles"
   >
     <div class="border-bottom sticky-top bg-white">
       <div class="p-3 mx-4">
@@ -12,14 +13,21 @@
               <QIcon icon="mdi-folder-sync mr-2 text-orange darken-10 f-20" />
               <b>My Drive</b>
             </p>
-            <small class="text-muted">
-              Manage your account files
-            </small>
+            <small class="text-muted"> Manage your account files </small>
           </div>
         </div>
       </div>
     </div>
-    <div class="toolbar p-2 bg-dark d-flex align-items-center justify-content-between">
+    <div
+      class="
+        toolbar
+        p-2
+        bg-dark
+        d-flex
+        align-items-center
+        justify-content-between
+      "
+    >
       <div class="w-50">
         <QInput v-model="query" placeholder="Find Files" />
       </div>
@@ -33,38 +41,73 @@
     <div class="h-100 bg-light h-100 scrollable-y show-scroll">
       <div class="w-100">
         <div class="directory-tree">
-          <div class="scrollable-area scrollable-y show-scroll position-relative">
+          <div
+            class="scrollable-area scrollable-y show-scroll position-relative"
+          >
             <div class="tree p-3" v-if="top">
-              <DriveTreeFolder @selectDirectory="setDirectory"
-                               @selectFile="setFile"
-                               :folder="top"
-                               :selected-directory="selectedDirectory"
-                               :selected-file="selectedFile"
-                               :root="root"
-                               v-if="query.length < 1"
+              <DriveTreeFolder
+                @selectDirectory="setDirectory"
+                @selectFile="setFile"
+                :folder="top"
+                :selected-directory="selectedDirectory"
+                :selected-file="selectedFile"
+                :root="root"
+                v-if="query.length < 1"
               />
               <div class="files" v-else>
-                <div v-for="file in found"
-                     :key="file.name"
-                     class="selectable no-select clip-text mb-1 p-1 rounded d-flex align-items-center"
-                     :class="{'selected': selectedFiles[file.path] }"
-                     style="max-width: 300px"
-                     @click="setFile(file);hilightFile(file)"
+                <div
+                  v-for="file in found"
+                  :key="file.name"
+                  class="
+                    selectable
+                    no-select
+                    clip-text
+                    mb-1
+                    p-1
+                    rounded
+                    d-flex
+                    align-items-center
+                  "
+                  :class="{ selected: selectedFiles[file.path] }"
+                  style="max-width: 300px"
+                  @click="
+                    setFile(file);
+                    hilightFile(file);
+                  "
                 >
                   <QIcon :icon="file.icon" />
                   <span class="ml-2 clip-text">{{ file.name }}</span>
                 </div>
               </div>
             </div>
-            <div class="preview-pane bg-dark-grey darken-10" :class="{'show': selectedFile || selectedDirectory.name }">
+            <div
+              class="preview-pane bg-dark-grey darken-10"
+              :class="{ show: selectedFile || selectedDirectory.name }"
+            >
               <div v-if="selectedFile">
-                <div class="content-view-cards w-100 d-flex align-items-center justify-content-center bg-grey ">
+                <div
+                  class="
+                    content-view-cards
+                    w-100
+                    d-flex
+                    align-items-center
+                    justify-content-center
+                    bg-grey
+                  "
+                >
                   <DriveFilePreview :file="selectedFile" />
                 </div>
                 <div class="card m-2 elevation-1 text-dark">
                   <DriveFile class="mb-0" :file="selectedFile" />
                   <QList class="">
-                    <QListItem class="d-flex flex-wrap align-items-center justify-content-between">
+                    <QListItem
+                      class="
+                        d-flex
+                        flex-wrap
+                        align-items-center
+                        justify-content-between
+                      "
+                    >
                       <div>
                         <QBtn @click="downloadFile" class="mx-1">
                           <QIcon icon="mdi-download" class="mr-2" /> download
@@ -83,12 +126,28 @@
                 </div>
               </div>
               <div v-else-if="selectedDirectory.name">
-                <div class="content-view-cards w-100 d-flex align-items-center justify-content-center bg-grey ">
+                <div
+                  class="
+                    content-view-cards
+                    w-100
+                    d-flex
+                    align-items-center
+                    justify-content-center
+                    bg-grey
+                  "
+                >
                   <DriveFilePreview :file="selectedDirectory" />
                 </div>
                 <div class="card m-2 elevation-1 text-dark">
                   <QList class="p-0">
-                    <QListItem class="d-flex flex-wrap align-items-center justify-content-between">
+                    <QListItem
+                      class="
+                        d-flex
+                        flex-wrap
+                        align-items-center
+                        justify-content-between
+                      "
+                    >
                       <div>
                         <QBtn @click="downloadDirectory" class="mx-1">
                           <QIcon icon="mdi-download" class="mr-2" /> download
@@ -96,12 +155,21 @@
                       </div>
                       <div>
                         <QBtn class="mx-1 p-1" title="files">
-                          <QIcon icon="mdi-folder-multiple" class="mr-2" /> {{ selectedDirectory.folders.length }}
+                          <QIcon icon="mdi-folder-multiple" class="mr-2" />
+                          {{ selectedDirectory.folders.length }}
                         </QBtn>
                         <QBtn class="mx-1 p-1" title="files">
-                          <QIcon icon="mdi-file-document-multiple" class="mr-2" /> {{ selectedDirectory.files.length }}
+                          <QIcon
+                            icon="mdi-file-document-multiple"
+                            class="mr-2"
+                          />
+                          {{ selectedDirectory.files.length }}
                         </QBtn>
-                        <QBtn class="mx-1 p-1" title="files" v-if="selectedDirectory.path">
+                        <QBtn
+                          class="mx-1 p-1"
+                          title="files"
+                          v-if="selectedDirectory.path"
+                        >
                           {{ directorySizeMb }} Mb
                         </QBtn>
                       </div>
@@ -114,17 +182,20 @@
         </div>
       </div>
     </div>
-    <div class="position-absolute" style="bottom: 0; left:0; right: 0;">
+    <div class="position-absolute" style="bottom: 0; left: 0; right: 0">
       <slot name="footer" :selected="selected" />
     </div>
-    <DriveFileUploader v-if="showUploader" @close="showUploader = false" :folder="selectedDirectory" />
+    <DriveFileUploader
+      v-if="showUploader"
+      @close="showUploader = false"
+      :folder="selectedDirectory"
+    />
   </div>
 </template>
 
 <script>
-import { reactive, ref } from '@vue/reactivity'
+import { reactive, ref, computed, onMounted } from '@vue/reactivity'
 import { drive, DriveService, getEmailRoot, selectedFiles } from './DriveService'
-import { computed, onMounted } from '@vue/runtime-core'
 import { UTILS } from '../utils'
 
 export default {
@@ -225,26 +296,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.tree-container{
+.tree-container {
   overflow: hidden;
-  .preview-pane{
+  .preview-pane {
     position: absolute;
     top: 0;
     bottom: 0;
     right: 0;
     transform: translateX(100%);
-    transition: all .3s linear;
+    transition: all 0.3s linear;
 
-    &.show{
+    &.show {
       transform: translateX(0);
       width: 50%;
     }
   }
-  .selected{
+  .selected {
     background: var(--dark);
     color: var(--white);
   }
 }
-
 </style>

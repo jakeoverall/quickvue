@@ -6,7 +6,7 @@
       ref="contextMenu"
       v-show="opened"
       tabindex="-1"
-      :style="{left:menuStyles.left + 'px', top: menuStyles.top + 'px'}"
+      :style="{ left: menuStyles.left + 'px', top: menuStyles.top + 'px' }"
     >
       <slot name="menu" :close="() => close()" :payload="payload" />
     </div>
@@ -15,8 +15,7 @@
 
 <script>
 
-import { reactive, ref } from '@vue/reactivity'
-import { onBeforeUnmount } from '@vue/runtime-core'
+import { onBeforeUnmount, reactive, ref } from '@vue/reactivity'
 
 export default {
   setup() {
@@ -78,18 +77,18 @@ export default {
   position: fixed;
   z-index: 999;
   overflow: hidden;
-  background: #FFF;
+  background: #fff;
   border-radius: 4px;
   min-width: 200px;
   max-width: 500px;
   max-height: 500px;
   overflow: auto;
   &:focus {
-      outline: none;
+    outline: none;
   }
   ul {
-    padding:0px;
-    margin:0px;
+    padding: 0px;
+    margin: 0px;
   }
 }
 </style>

@@ -1,9 +1,10 @@
 <template>
-  <div class="w-100 file-preview position-relative"
-       :class="{'no-preview':!hasPreview}"
-       @mouseenter="showControls = true"
-       @mouseleave="showControls = false"
-       v-if="file.type"
+  <div
+    class="w-100 file-preview position-relative"
+    :class="{ 'no-preview': !hasPreview }"
+    @mouseenter="showControls = true"
+    @mouseleave="showControls = false"
+    v-if="file.type"
   >
     <audio
       v-if="file.type.includes('audio')"
@@ -14,7 +15,7 @@
     />
     <video
       v-else-if="file.type.includes('video')"
-      :src="file.url+'#t=0.5'"
+      :src="file.url + '#t=0.5'"
       :alt="file.name"
       class="w-100 img-cover bg-dark rounded-top"
       preload="metadata"
@@ -34,15 +35,23 @@
       style="font-size: 4rem"
       :icon="file.icon"
     />
-    <b class="filepath position-absolute text-white" style="bottom: 1rem;" v-if="!hasPreview">
-      {{ file.path.indexOf('/') == -1 ? 'My Drive/' : file.path.slice(file.path.indexOf('/')) }}
+    <b
+      class="filepath position-absolute text-white"
+      style="bottom: 1rem"
+      v-if="!hasPreview"
+    >
+      {{
+        file.path.indexOf("/") == -1
+          ? "My Drive/"
+          : file.path.slice(file.path.indexOf("/"))
+      }}
     </b>
   </div>
 </template>
 
 <script>
-import { reactive, ref } from '@vue/reactivity'
-import { computed } from '@vue/runtime-core'
+import { reactive, ref, computed } from '@vue/reactivity'
+
 export default {
   props: {
     file: { type: Object, required: true }
@@ -61,15 +70,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.file-preview{
-  img, video{
+.file-preview {
+  img,
+  video {
     height: 50vh;
     object-fit: contain;
     padding: 1rem;
   }
 
-  &.no-preview{
+  &.no-preview {
     height: 50vh;
     display: flex;
     align-items: center;
@@ -77,5 +86,4 @@ export default {
     background: rgb(36, 36, 56);
   }
 }
-
 </style>

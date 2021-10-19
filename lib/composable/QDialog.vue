@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { onBeforeUnmount, onMounted, ref, watchEffect } from '@vue/runtime-core'
+import { onBeforeUnmount, onMounted, ref, watchEffect } from '@vue/reactivity'
 
 export default {
   props: {

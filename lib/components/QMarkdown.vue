@@ -20,7 +20,7 @@ import marked from 'marked'
 import hljs from 'highlight.js'
 import DOMpurify from 'dompurify'
 import { UTILS } from '../utils'
-import { computed, watch } from '@vue/runtime-core'
+import { computed, watch } from '@vue/reactivity'
 
 export default {
   props: {

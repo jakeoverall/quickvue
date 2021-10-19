@@ -2,30 +2,36 @@
   <div>
     <label :for="label">
       <div class="d-flex align-items-center bg-dark rounded">
-        <QCheckbox v-model="editing"
-                   :label="(editing ? 'See Preview': 'Edit ' + label)"
-                   class="pr-2 bg-dark square-right"
-                   :pre="true"
+        <QCheckbox
+          v-model="editing"
+          :label="editing ? 'See Preview' : 'Edit ' + label"
+          class="pr-2 bg-dark square-right"
+          :pre="true"
         />
-        <QBtn class="ml-1 text-white square-left" @click="change" v-if="!editing">
+        <QBtn
+          class="ml-1 text-white square-left"
+          @click="change"
+          v-if="!editing"
+        >
           <QIcon icon="mdi-content-save f-10" />
         </QBtn>
       </div>
     </label>
-    <QMarkdown v-model="editable"
-               class="scrollable show-scroll"
-               rows="4"
-               v-bind="$attrs"
-               :placeholder="label"
-               :edit="editing"
-               :id="label"
+    <QMarkdown
+      v-model="editable"
+      class="scrollable show-scroll"
+      rows="4"
+      v-bind="$attrs"
+      :placeholder="label"
+      :edit="editing"
+      :id="label"
     />
   </div>
 </template>
 
 <script>
-import { ref } from '@vue/reactivity'
-import { watchEffect } from '@vue/runtime-core'
+
+import { ref, watchEffect } from '@vue/reactivity'
 
 export default {
   props: {
@@ -53,5 +59,4 @@ export default {
 </script>
 
 <style>
-
 </style>

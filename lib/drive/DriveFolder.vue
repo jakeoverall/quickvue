@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { computed, reactive, ref } from '@vue/runtime-core'
+import { computed, reactive, ref } from '@vue/reactivity'
 import { Logger } from '../monitoring/Logger'
 import { DriveService, selectedFiles } from './DriveService'
 

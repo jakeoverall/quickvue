@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { computed } from '@vue/runtime-core'
+import { computed } from '@vue/reactivity'
 import { notifications } from '../NotificationService'
 export default {
   props: {

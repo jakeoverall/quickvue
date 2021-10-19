@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { ref, watchEffect } from '@vue/runtime-core'
+import { ref, watchEffect } from '@vue/reactivity'
 export default {
   props: {
     selected: { type: [Object, String, Number], default: () => null },
