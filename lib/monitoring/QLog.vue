@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue'
+import { computed, ref } from '@vue/runtime-core'
 import { Logger } from './Logger'
 export default {
   setup() {

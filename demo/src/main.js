@@ -1,4 +1,5 @@
-import { createApp } from 'vue'
+
+import { createApp } from '@vue/runtime-dom'
 import { QuickVue } from '../../QuickVue'
 // @ts-ignore
 import App from './App.vue'

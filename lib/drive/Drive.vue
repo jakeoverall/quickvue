@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { computed, onMounted, reactive, ref, watchEffect } from 'vue'
+import { computed, onMounted, reactive, ref, watchEffect } from '@vue/runtime-core'
 import { DriveService, drive, getEmailRoot } from './DriveService'
 import { useRoute } from 'vue-router'
 

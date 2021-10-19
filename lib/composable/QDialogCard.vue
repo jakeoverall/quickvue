@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { reactive, ref } from 'vue'
+import { reactive, ref } from '@vue/runtime-core'
 
 export default {
   props: {

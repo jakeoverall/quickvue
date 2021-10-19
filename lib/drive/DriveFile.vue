@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { computed, reactive, ref } from 'vue'
+import { computed, reactive, ref } from '@vue/runtime-core'
 import { dateFilter } from '../DateFilters'
 
 export default {

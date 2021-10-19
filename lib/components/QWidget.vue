@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { computed, reactive, ref } from 'vue'
+import { computed, reactive, ref } from '@vue/runtime-core'
 export default {
   props: {
     title: { type: String, default: '' },
