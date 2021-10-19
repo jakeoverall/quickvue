@@ -3,15 +3,23 @@
     <Transition name="slideY">
       <div v-if="open" class="logger-container elevation-4" :class="theme">
         <div class="logger-view">
-          <div class="top-bar border-bottom text-white d-flex justify-content-between">
+          <div
+            class="
+              top-bar
+              border-bottom
+              text-white
+              d-flex
+              justify-content-between
+            "
+          >
             <div class="d-flex align-items-center">
-              <QBtn class="text-white" @click="Logger.clear">
+              <QBtn class="text-white" @click="clear">
                 <QIcon icon="mdi-cancel" />
                 <span class="ml-2">clear log</span>
               </QBtn>
               <slot name="topBar"></slot>
             </div>
-            <QBtn class="text-white" @click="Logger.close">
+            <QBtn class="text-white" @click="close">
               <QIcon icon="mdi-close" />
               <span class="ml-2">close</span>
             </QBtn>
@@ -19,36 +27,50 @@
           <div class="logs scrollable-y show-scroll">
             <div
               v-for="log in logs"
-              :class="log.type+'-type'"
+              :class="log.type + '-type'"
               :key="log.id"
               class="py-1 log-message"
             >
               <div class="d-flex justify-content-between px-2">
                 <small class="log-label text-uppercase">
-                  <QIcon :class="logIconColor(log.type)" small :icon="logIcon(log.type)" />
+                  <QIcon
+                    :class="logIconColor(log.type)"
+                    small
+                    :icon="logIcon(log.type)"
+                  />
                 </small>
-                <div class="d-flex flex-wrap mx-1 flex-grow-1"
-                     style="width: 80vw;
-    white-space: pre-line;
-    word-break: break-word;"
+                <div
+                  class="d-flex flex-wrap mx-1 flex-grow-1"
+                  style="
+                    width: 80vw;
+                    white-space: pre-line;
+                    word-break: break-word;
+                  "
                 >
                   <div
                     class="ml-1 mr-1"
-                    v-for="(message,i) in log.items"
-                    :key="log.id+i"
+                    v-for="(message, i) in log.items"
+                    :key="log.id + i"
                   >
                     <QCollapse v-if="message.startsWith('{')">
-                      <template #trigger="{show}">
+                      <template #trigger="{ show }">
                         <QBtn class="text-white">
-                          <QIcon :icon="show ? 'mdi-minus':'mdi-chevron-down'" />
-                          <span class="ml-2">[OBJECT {{ message.slice(0,5) }}]</span>
+                          <QIcon
+                            :icon="show ? 'mdi-minus' : 'mdi-chevron-down'"
+                          />
+                          <span class="ml-2"
+                            >[OBJECT {{ message.slice(0, 5) }}]</span
+                          >
                         </QBtn>
                       </template>
                       <div class="p-3 bg-dark text-white rounded">
                         {{ message }}
                       </div>
                     </QCollapse>
-                    <span v-else>{{ message }}{{ log.items.length != i + 1 ? ', ':'' }}</span>
+                    <span v-else
+                      >{{ message
+                      }}{{ log.items.length != i + 1 ? ", " : "" }}</span
+                    >
                   </div>
                 </div>
                 <span class="date px-2 timestamp">{{ date(log.date) }}</span>
@@ -64,7 +86,12 @@
               </template>
               <div class="bg-dark w-100 text-white elevation-4">
                 <QList class="scrollable-y no-select py-0">
-                  <QListItem class="selectable dark text-capitalize" v-for="theme in themes" :key="theme" @click="changeTheme(theme)">
+                  <QListItem
+                    class="selectable dark text-capitalize"
+                    v-for="theme in themes"
+                    :key="theme"
+                    @click="changeTheme(theme)"
+                  >
                     {{ theme }}
                   </QListItem>
                 </QList>
@@ -79,18 +106,25 @@
 </template>
 
 <script>
-import { computed, ref } from '@vue/runtime-core'
+import { computed, ref, watchEffect } from '@vue/runtime-core'
 import { Logger } from './Logger'
 export default {
-  setup() {
+  props: {
+    show: { type: Boolean, required: true }
+  },
+  setup(props, { emit }) {
     const THEME_KEY = 'logger_theme'
     const theme = ref(localStorage.getItem(THEME_KEY) || 'default')
+    const open = ref(false)
+    watchEffect(() => {
+      open.value = props.show
+    })
+
     return {
+      open,
       theme,
       themes: ['default', 'dracula'],
       logs: computed(() => Logger.logs),
-      open: computed(() => Logger.visible),
-      Logger,
       logIcon(type) {
         if (type === 'error') {
           return 'mdi-close-circle'
@@ -111,7 +145,15 @@ export default {
       changeTheme(t) {
         theme.value = t
         localStorage.setItem(THEME_KEY, t)
+      },
+      close() {
+        open.value = false
+        emit('closed')
+      },
+      clear() {
+        Logger.clear()
       }
+
     }
   }
 }
@@ -127,7 +169,7 @@ export default {
   z-index: 4;
   color: #e9e9e9;
   font-size: smaller;
-  .top-bar{
+  .top-bar {
     height: 40px;
   }
   .logs {
@@ -146,16 +188,16 @@ export default {
       }
     }
   }
-  .bottom-bar{
+  .bottom-bar {
     height: 30px;
     font-size: 12pt;
     overflow: hidden;
   }
 
-  &::before{
+  &::before {
     content: "";
     background: transparent;
-    transition: all .25s linear;
+    transition: all 0.25s linear;
     position: absolute;
     cursor: pointer;
     pointer-events: none;
@@ -167,13 +209,13 @@ export default {
     align-items: center;
   }
 
-  &.default{
+  &.default {
     background: #1e1e1e;
     color: whitesmoke;
-    .top-bar{
+    .top-bar {
       background: #2d2d2d;
     }
-    .bottom-bar{
+    .bottom-bar {
       background: #cc6633;
     }
     .warn-type {
@@ -193,14 +235,14 @@ export default {
     }
   }
 
-  &.dracula{
+  &.dracula {
     background: #22212c;
-    font-family: 'Fira Code', monospace;
+    font-family: "Fira Code", monospace;
     color: whitesmoke;
-    .top-bar{
+    .top-bar {
       background: #2b2640;
     }
-    .bottom-bar{
+    .bottom-bar {
       background: #130f09;
     }
     .warn-type {
@@ -215,20 +257,21 @@ export default {
     .log-type {
       color: #80e877;
     }
-    &::before{
+    &::before {
       content: "🧛‍♂️ Dracula";
       background: #c06595;
       font-size: 17px;
       padding: 0 1.85rem;
       left: 0;
     }
-    .show-scroll.logs::-webkit-scrollbar-thumb, .show-scroll.logs *::-webkit-scrollbar-thumb{
-      background: #f0f07a
+    .show-scroll.logs::-webkit-scrollbar-thumb,
+    .show-scroll.logs *::-webkit-scrollbar-thumb {
+      background: #f0f07a;
     }
-    .show-scroll.logs::-webkit-scrollbar-track, .show-scroll.logs *::-webkit-scrollbar-track{
-      background: #130f09
+    .show-scroll.logs::-webkit-scrollbar-track,
+    .show-scroll.logs *::-webkit-scrollbar-track {
+      background: #130f09;
     }
   }
-
 }
 </style>
