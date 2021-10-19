@@ -15,7 +15,8 @@
 
 <script>
 
-import { onBeforeUnmount, reactive, ref } from '@vue/reactivity'
+import { reactive, ref } from '@vue/reactivity'
+import { onBeforeUnmount } from '@vue/runtime-core'
 
 export default {
   setup() {

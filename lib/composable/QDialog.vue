@@ -1,20 +1,38 @@
 <template>
-  <div class="dialog-container" v-if="open" :class="{fullscreen}">
-    <div class="content-elem" ref="contentElem" :style="{'min-width': minWidth}" v-bind="$attrs">
+  <div class="dialog-container" v-if="open" :class="{ fullscreen }">
+    <div
+      class="content-elem"
+      ref="contentElem"
+      :style="{ 'min-width': minWidth }"
+      v-bind="$attrs"
+    >
       <div class="dialog-body h-100">
-        <div class="rounded elevation-4 h-100" :class="dark ? 'bg-dark' : 'bg-white'">
+        <div
+          class="rounded elevation-4 h-100"
+          :class="dark ? 'bg-dark' : 'bg-white'"
+        >
           <div class="border-bottom" :class="dark ? 'bg-dark border-dark' : ''">
-            <div class="p-3 mx-4 d-flex align-items-center justify-content-between">
+            <div
+              class="p-3 mx-4 d-flex align-items-center justify-content-between"
+            >
               <slot name="header" />
-              <QBtn icon @click="close" class="f-20" :class="dark ? 'bg-dark text-white' : ''">
+              <QBtn
+                icon
+                @click="close"
+                class="f-20"
+                :class="dark ? 'bg-dark text-white' : ''"
+              >
                 <QIcon icon="mdi-close" />
               </QBtn>
             </div>
-            <slot name="tabs" :close="()=> close()" />
+            <slot name="tabs" :close="() => close()" />
           </div>
 
-          <div class="dialog-content scrollable-y show-scroll" :class="dark ? 'bg-dark lighten-20' : 'bg-light'">
-            <slot :close="()=> close()" />
+          <div
+            class="dialog-content scrollable-y show-scroll"
+            :class="dark ? 'bg-dark lighten-20' : 'bg-light'"
+          >
+            <slot :close="() => close()" />
           </div>
         </div>
       </div>
@@ -23,7 +41,8 @@
 </template>
 
 <script>
-import { onBeforeUnmount, onMounted, ref, watchEffect } from '@vue/reactivity'
+import { ref, watchEffect } from '@vue/reactivity'
+import { onBeforeUnmount, onMounted } from '@vue/runtime-core'
 
 export default {
   props: {
@@ -59,14 +78,14 @@ export default {
         if (props.open && !props.persistent && !contentElem.value.contains(e.target)) {
           close()
         }
-      } catch (e) {}
+      } catch (e) { }
     }
     function checkEsc(e) {
       try {
         if (props.open && e.which === 27 && !props.persistent) {
           close()
         }
-      } catch (e) {}
+      } catch (e) { }
     }
 
     function removeHandlers() {
@@ -74,7 +93,7 @@ export default {
         root.removeEventListener('click', checkClickOutside)
         document.removeEventListener('keydown', checkEsc)
         close()
-      } catch (e) {}
+      } catch (e) { }
     }
 
     function getOrCreateModalRoot() {
@@ -88,14 +107,14 @@ export default {
         ready.value = true
         root.addEventListener('click', checkClickOutside)
         window.addEventListener('keydown', checkEsc)
-      } catch (e) {}
+      } catch (e) { }
     }
 
     function close() {
       try {
         emit('close')
         document.body.classList.remove('ex-overlay')
-      } catch (e) {}
+      } catch (e) { }
     }
 
     return {
@@ -108,39 +127,42 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@keyframes open{
-  0%{
+@keyframes open {
+  0% {
     transform: scale(0);
   }
-  100%{
+  100% {
     transform: scale(1);
   }
 }
 .dialog-container {
   position: fixed;
-  top:0; right: 0; bottom: 0; left: 0;
-  background-color: rgba(0,0,0,.35);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.35);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   z-index: 9;
-  .content-elem{
-    animation: open .15s linear;
+  .content-elem {
+    animation: open 0.15s linear;
     max-width: 90vw;
-    max-height: 90vh
+    max-height: 90vh;
   }
-  .dialog-content{
+  .dialog-content {
     min-width: var(--minWidth);
     max-height: calc(90vh - 80px);
   }
-  &.fullscreen{
-    .content-elem{
-      animation: open .15s linear;
+  &.fullscreen {
+    .content-elem {
+      animation: open 0.15s linear;
       max-width: 100vw;
-      max-height: 100vh
+      max-height: 100vh;
     }
-    .dialog-content{
+    .dialog-content {
       min-width: 100vw;
       max-height: 100vh;
       padding: 0 !important;
@@ -149,22 +171,21 @@ export default {
 }
 
 @media screen AND (max-width: 768px) {
-  .dialog-container{
-    .content-elem{
+  .dialog-container {
+    .content-elem {
       width: 100vw;
       height: 100vh;
       max-width: 100vw;
       max-height: 100vh;
-      .dialog-content{
+      .dialog-content {
         max-height: calc(100vh - 80px);
       }
     }
-    .dialog-content{
+    .dialog-content {
       width: 100%;
       height: 100%;
       border-radius: 0 !important;
     }
   }
 }
-
 </style>

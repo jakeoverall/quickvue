@@ -1,10 +1,19 @@
 <template>
-  <div class="card no-context codeworks-drive position-relative"
-       @contextmenu.prevent
-       @dragover.prevent="onDragOver"
-       @drop.prevent="checkFiles"
+  <div
+    class="card no-context codeworks-drive position-relative"
+    @contextmenu.prevent
+    @dragover.prevent="onDragOver"
+    @drop.prevent="checkFiles"
   >
-    <div class="drive-toolbar d-flex align-items-center justify-content-between border-bottom">
+    <div
+      class="
+        drive-toolbar
+        d-flex
+        align-items-center
+        justify-content-between
+        border-bottom
+      "
+    >
       <div class="d-flex w-50 ml-2">
         <QBtn @click="showUploader = true" class="mx-1">
           <QIcon icon="mdi-cloud-upload mr-1" />
@@ -17,18 +26,37 @@
         </QBtn>
       </div>
     </div>
-    <DriveNavCrumbs class="scrollable-x" :drive="drive" :path="folderKey" :root="root" />
-    <div class="drive-contents bg-light position-relative" :class="contentView.view">
-      <DriveFolder :folder="activeFolder" :drive="drive" v-if="activeFolder" @setFolder="setFolder" />
+    <DriveNavCrumbs
+      class="scrollable-x"
+      :drive="drive"
+      :path="folderKey"
+      :root="root"
+    />
+    <div
+      class="drive-contents bg-light position-relative"
+      :class="contentView.view"
+    >
+      <DriveFolder
+        :folder="activeFolder"
+        :drive="drive"
+        v-if="activeFolder"
+        @setFolder="setFolder"
+      />
     </div>
-    <DriveFileUploader v-if="showUploader" @close="showUploader = false" :folder="activeFolder" />
+    <DriveFileUploader
+      v-if="showUploader"
+      @close="showUploader = false"
+      :folder="activeFolder"
+    />
   </div>
 </template>
 
 <script>
-import { computed, onMounted, reactive, ref, watchEffect } from '@vue/reactivity'
+import { computed, reactive, ref, watchEffect } from '@vue/reactivity'
 import { DriveService, drive, getEmailRoot } from './DriveService'
 import { useRoute } from 'vue-router'
+import { onMounted } from '@vue/runtime-core'
+
 
 export default {
   props: {
@@ -113,5 +141,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 </style>

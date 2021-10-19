@@ -194,9 +194,10 @@
 </template>
 
 <script>
-import { reactive, ref, computed, onMounted } from '@vue/reactivity'
+import { reactive, ref, computed } from '@vue/reactivity'
 import { drive, DriveService, getEmailRoot, selectedFiles } from './DriveService'
 import { UTILS } from '../utils'
+import { onMounted } from '@vue/runtime-core'
 
 export default {
   props: {
