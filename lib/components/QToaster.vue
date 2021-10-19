@@ -40,7 +40,7 @@ export default {
   },
   setup() {
     return reactive({
-      notifications: computed(() => notifications),
+      notifications: computed(() => notifications.list),
       remove(toast) {
         const i = notifications.findIndex(n => n.id === toast.id)
         if (i === -1) {
