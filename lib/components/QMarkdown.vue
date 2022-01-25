@@ -12,12 +12,12 @@
 </template>
 
 <script>
-import marked from 'marked'
-import hljs from 'highlight.js'
-import DOMpurify from 'dompurify'
-import { UTILS } from '../utils'
 import { computed } from '@vue/reactivity'
 import { watch } from '@vue/runtime-core'
+import DOMpurify from 'dompurify'
+import hljs from 'highlight.js'
+import { marked } from 'marked'
+import { UTILS } from '../utils'
 
 export default {
   props: {
