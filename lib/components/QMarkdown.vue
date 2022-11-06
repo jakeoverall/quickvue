@@ -1,20 +1,12 @@
 <template>
   <div class="__q-md-renderer__" v-html="formatted" v-if="!edit"></div>
-  <textarea
-    v-else
-    class="form-control __q-md-editor__"
-    @input="change"
-    @blur="blur"
-    @keydown.tab.exact.prevent="onTab"
-    @keydown.shift.tab.exact.prevent="onShiftTab"
-    :value="modelValue"
-  ></textarea>
+  <textarea v-else class="form-control __q-md-editor__" @input="change" @blur="blur" @keydown.tab.exact.prevent="onTab"
+    @keydown.shift.tab.exact.prevent="onShiftTab" :value="modelValue"></textarea>
 </template>
 
 <script>
 import { computed } from '@vue/reactivity'
 import { watch } from '@vue/runtime-core'
-import DOMpurify from 'dompurify'
 import hljs from 'highlight.js'
 import { marked } from 'marked'
 import { UTILS } from '../utils'
@@ -100,7 +92,7 @@ export default {
     }
 
     return {
-      formatted: computed(() => DOMpurify.sanitize(marked(props.modelValue || props.value))),
+      formatted: computed(() => (marked(props.modelValue || props.value))),
       change() {
         md = event.target.value
         UTILS.$debounce(fire, props.debounce)
@@ -143,12 +135,14 @@ export default {
   img {
     max-width: 100%;
   }
+
   pre {
     border-radius: 5px;
     box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2),
       0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
   }
 }
+
 .__q-md-editor__ {
   resize: vertical;
 }
