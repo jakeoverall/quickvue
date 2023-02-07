@@ -31,28 +31,31 @@
 </template>
 
 <script>
-import { ref } from '@vue/reactivity'
-import { watchEffect } from '@vue/runtime-core'
+import { ref, watchEffect } from 'vue'
+
 
 export default {
   props: {
-    selected: { type: [Object, String, Number], default: () => null },
+    selected: { type: [Object, String, Number], default: () => '' },
     items: { type: Array, default: () => [] },
     itemText: { type: String, default: 'name' },
     insetIconA: { type: Boolean, default: true },
     insetIconP: { type: Boolean, default: false },
     label: { type: String, default: '' },
     prependIcon: { type: String, default: '' },
-    appendIcon: { type: String, default: 'mdi-chevron-down' },
+    appendIcon: { type: String, default: 'mdi-chevron-down text-dark' },
     hint: { type: String, default: '' }
   },
   emits: ['select'],
   inheritAttrs: false,
   setup(props, context) {
+
     const display = ref('')
-    watchEffect(() => {
-      display.value = props.selected ? props.selected[props.itemText] : props.selected
+
+    watchEffect(()=>{
+      display.value = props?.selected[props?.itemText] ? props.selected[props.itemText] : props.selected
     })
+
     return {
       display,
       onSelect(item) {
