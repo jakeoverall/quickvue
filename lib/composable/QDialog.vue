@@ -1,37 +1,23 @@
 <template>
   <div class="dialog-container" v-if="open" :class="{ fullscreen }">
-    <div
-      class="content-elem"
-      ref="contentElem"
-      :style="{ 'min-width': minWidth }"
-      v-bind="$attrs"
-    >
+    <div class="content-elem" ref="contentElem" :style="{ 'min-width': minWidth }" v-bind="$attrs">
       <div class="dialog-body h-100">
-        <div
-          class="rounded elevation-4 h-100"
-          :class="dark ? 'bg-dark' : 'bg-white'"
-        >
+        <div class="rounded elevation-4 h-100" :class="dark ? 'bg-dark' : 'bg-white'">
           <div class="border-bottom" :class="dark ? 'bg-dark border-dark' : ''">
-            <div
-              class="p-3 mx-4 d-flex align-items-center justify-content-between"
-            >
-              <slot name="header" />
-              <QBtn
-                icon
-                @click="close"
-                class="f-20"
-                :class="dark ? 'bg-dark text-white' : ''"
-              >
+            <div class="p-3 mx-4 d-flex align-items-center justify-content-between">
+              <slot name="header">
+                <div>
+                  <p class="mb-0"><b>{{ title }}</b></p>
+                </div>
+              </slot>
+              <QBtn icon @click="close" class="f-20" :class="dark ? 'bg-dark text-white' : ''">
                 <QIcon icon="mdi-close" />
               </QBtn>
             </div>
             <slot name="tabs" :close="() => close()" />
           </div>
 
-          <div
-            class="dialog-content scrollable-y show-scroll"
-            :class="dark ? 'bg-dark lighten-20' : 'bg-light'"
-          >
+          <div class="dialog-content scrollable-y show-scroll" :class="dark ? 'bg-dark lighten-20' : 'bg-light'">
             <slot :close="() => close()" />
           </div>
         </div>
@@ -131,10 +117,12 @@ export default {
   0% {
     transform: scale(0);
   }
+
   100% {
     transform: scale(1);
   }
 }
+
 .dialog-container {
   position: fixed;
   top: 0;
@@ -147,21 +135,25 @@ export default {
   align-items: center;
   justify-content: center;
   z-index: 9;
+
   .content-elem {
     animation: open 0.15s linear;
     max-width: 90vw;
     max-height: 90vh;
   }
+
   .dialog-content {
     min-width: var(--minWidth);
     max-height: calc(90vh - 80px);
   }
+
   &.fullscreen {
     .content-elem {
       animation: open 0.15s linear;
       max-width: 100vw;
       max-height: 100vh;
     }
+
     .dialog-content {
       min-width: 100vw;
       max-height: 100vh;
@@ -177,10 +169,12 @@ export default {
       height: 100vh;
       max-width: 100vw;
       max-height: 100vh;
+
       .dialog-content {
         max-height: calc(100vh - 80px);
       }
     }
+
     .dialog-content {
       width: 100%;
       height: 100%;

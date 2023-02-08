@@ -1,29 +1,14 @@
 <template>
   <QMenu close-on-click :offset-y="hint ? '-1.9rem' : ''">
     <template #trigger>
-      <QInput
-        no-select
-        as-select
-        readonly
-        v-model="display"
-        :inset-icon-p="insetIconP"
-        :inset-icon-a="insetIconA"
-        :prepend-icon="prependIcon"
-        :append-icon="appendIcon"
-        :hint="hint"
-        :label="label"
-        v-bind="$attrs"
-      />
+      <QInput no-select as-select readonly v-model="display" :inset-icon-p="insetIconP" :inset-icon-a="insetIconA"
+        :prepend-icon="prependIcon" :append-icon="appendIcon" :hint="hint" :label="label" v-bind="$attrs" />
     </template>
     <QList class="card scrollable-y no-select">
-      <QListItem
-        class="selectable w-100"
-        v-for="(item, i) in items"
-        :key="item.id ? item.id : item + i"
-        @click="onSelect(item)"
-      >
+      <QListItem class="selectable w-100" v-for="(item, i) in items" :key="item.id ? item.id : item + i"
+        @click="onSelect(item)">
         <slot name="item" :item="item">
-          {{ item[itemText] ? item[itemText] : item }}
+          {{ item[itemText]? item[itemText] : item }}
         </slot>
       </QListItem>
     </QList>
@@ -52,7 +37,8 @@ export default {
 
     const display = ref('')
 
-    watchEffect(()=>{
+    watchEffect(() => {
+      if (props.selected == null || props.selected == undefined) { return }
       display.value = props?.selected[props?.itemText] ? props.selected[props.itemText] : props.selected
     })
 
@@ -70,6 +56,7 @@ export default {
 .selectable {
   background-color: inherit;
   transition: background-color 0.15s linear;
+
   &:hover {
     background-color: var(--grey);
     cursor: pointer;
